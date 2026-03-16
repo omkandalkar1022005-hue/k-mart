@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kmart - संपर्क करा | Contact Us</title>
+    <style>
+        /* Same header styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            flex: 0 1 400px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.5rem;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        
+        .user-cart {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-cart a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 0.5rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 100px;
+            width: 100%;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #667eea;
+        }
+
+        body {
+            padding-top: 130px;
+            background: #f8f9fa;
+        }
+
+        /* Contact Page Specific Styles */
+        .page-hero {
+            background: linear-gradient( #50f276 , #ab8ec8 );
+            color: rgb(19, 17, 17);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section {
+            padding: 4rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .contact-info h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .info-item:hover {
+            background: #f8f9fa;
+            transform: translateX(10px);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .info-content h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .map-container {
+            margin-top: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .contact-form h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #20c997;
+            transform: translateY(-2px);
+        }
+
+        .social-contact {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #28a745;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: #28a745;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .faq-section {
+            padding: 4rem 5%;
+            background: white;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 3rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .faq-item {
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: #28a745;
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.1);
+        }
+
+        .faq-item h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .faq-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+        }/* Social Media & Floating Elements */
+.follow {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.follow h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.social a {
+    color: #667eea;
+    font-size: 32px;
+    transition: 0.3s;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.social a:hover {
+    color: #ff6b6b;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(255,107,107,0.3);
+}
+
+.social a i {
+    font-size: 32px;
+}
+
+.floating-call, .floating-map {
+    position: fixed;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 55px;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.floating-call {
+    bottom: 100px;
+    background: #28a745;
+}
+
+.floating-map {
+    bottom: 30px;
+    background: #dc3545;
+}
+
+.floating-call:hover, .floating-map:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* Font Awesome Icons - Add this in head section */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+        @media (max-width: 768px) {
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-header">
+            <div class="logo">
+                <h1 data-i18n="logo">🛒 Kmart</h1>
+                <p data-i18n="tagline">तुमचे स्थानिक बाजार</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" data-i18n-placeholder="searchPlaceholder">
+                <button data-i18n="searchBtn">🔍 शोधा</button>
+            </div>
+            <div class="user-cart">
+                <a href="#" data-i18n="profile">👤 माझे प्रोफाइल</a>
+                <a href="#" data-i18n="cart">🛒 कार्ट (0)</a>
+                <div class="language-switcher">
+                    <button class="lang-btn" onclick="switchLanguage('mr')">मराठी</button>
+                    <button class="lang-btn" onclick="switchLanguage('hi')">हिन्दी</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="index.html" data-i18n="navHome">मुखपृष्ठ</a></li>
+            <li><a href="newP.html" data-i18n="navNew">नवीन उत्पादने</a></li>
+            <li><a href="sel.html" data-i18n="navBest">सर्वोत्कृष्ट विक्रेते</a></li>
+            <li><a href="offers.html" data-i18n="navOffers">ऑफर्स</a></li>
+            <li><a href="contact.html" class="active" data-i18n="navContact">संपर्क करा</a></li>
+            <li><a href="about.html" data-i18n="navAbout">आमच्याबद्दल</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <h1 data-i18n="contactHeroTitle">📞 संपर्क करा</h1>
+        <p data-i18n="contactHeroDesc">आम्ही तुमच्या मदतीसाठी २४/७ तयार आहोत. कधीही संपर्क करा.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <h2 data-i18n="getInTouch">आमच्याशी संपर्क साधा</h2>
+            
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                    <h3 data-i18n="address">पत्ता</h3>
+                    <p data-i18n="addressLine">Kmart हेड ऑफिस, बाणेर रोड, पुणे, महाराष्ट्र - ४११०४५</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-content">
+                    <h3 data-i18n="phone">फोन नंबर</h3>
+                    <p>+91 98765 43210<br>+91 98765 43211</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">✉️</div>
+                <div class="info-content">
+                    <h3 data-i18n="email">ईमेल</h3>
+                    <p>support@kmart.in<br>careers@kmart.in</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">⏰</div>
+                <div class="info-content">
+                    <h3 data-i18n="hours">कार्यालयीन वेळ</h3>
+                    <p data-i18n="hoursDetail">सोमवार - शनिवार: सकाळी ९ ते रात्री ८<br>रविवार: सकाळी १० ते संध्याकाळी ६</p>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="map-container">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='200' viewBox='0 0 600 200'%3E%3Crect width='600' height='200' fill='%23e0e0e0'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='%23666'%3E📍 नकाशा येथे दिसेल%3C/text%3E%3C/svg%3E" alt="Map" style="width: 100%; height: 200px; object-fit: cover;">
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <h2 data-i18n="sendMessage">आम्हाला संदेश पाठवा</h2>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label data-i18n="name">तुमचे नाव *</label>
+                    <input type="text" data-i18n-placeholder="namePlaceholder" placeholder="तुमचे नाव">
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n="emailLabel">ईमेल *</label>
+                    <input type="email" data-i18n-placeholder="emailPlaceholder" placeholder="तुमचा ईमेल">
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n="phoneLabel">फोन नंबर</label>
+                    <input type="tel" data-i18n-placeholder="phonePlaceholder" placeholder="तुमचा फोन नंबर">
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n="subject">विषय *</label>
+                    <input type="text" data-i18n-placeholder="subjectPlaceholder" placeholder="विषय">
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n="message">संदेश *</label>
+                    <textarea rows="5" data-i18n-placeholder="messagePlaceholder" placeholder="तुमचा संदेश"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" data-i18n="sendBtn">संदेश पाठवा</button>
+            </form>
+
+            <!-- Social Media -->
+            <div class="social-contact">
+                <h3 data-i18n="followUs">आम्हाला फॉलो करा</h3>
+                <div class="social-icons">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📷</a>
+                    <a href="#">💼</a>
+                    <a href="#">📱</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2 class="faq-title" data-i18n="faqTitle">वारंवार विचारले जाणारे प्रश्न</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3 data-i18n="faq1">ऑर्डरची स्थिती कशी तपासायची?</h3>
+                <p data-i18n="faq1Ans">तुम्ही आमच्या वेबसाइटवर 'माझे प्रोफाइल' मध्ये लॉग इन करून ऑर्डर स्थिती तपासू शकता.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-i18n="faq2">रिटर्न पॉलिसी काय आहे?</h3>
+                <p data-i18n="faq2Ans">आम्ही ७ दिवसांची रिटर्न पॉलिसी ऑफर करतो. उत्पादन प्राप्त झाल्यापासून ७ दिवसांत रिटर्न करू शकता.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-i18n="faq3">पेमेंट पर्याय कोणते?</h3>
+                <p data-i18n="faq3Ans">आम्ही क्रेडिट कार्ड, डेबिट कार्ड, UPI, नेट बँकिंग आणि COD सुविधा देतो.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-i18n="faq4">शिपिंग चार्जेस किती?</h3>
+                <p data-i18n="faq4Ans">₹५०० पेक्षा जास्त खरेदीवर शिपिंग फ्री आहे. त्याखाली ₹५० चार्जेस लागू.</p>
+            </div>
+        </div>
+    </section><!-- Social Media Follow Section -->
+<div class="follow">
+    <h2 data-i18n="followUs">Follow Us</h2>
+    <div class="social">
+        <a href="https://www.instagram.com/om____1199?igsh=ZXNtZm15aGNxZ3Rp" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com/@omkandalkar326?si=peEW-RMoxGJrXM2g" target="_blank">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://wa.me/8275761213" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Floating Buttons -->
+<a href="tel:+918275761213" class="floating-call" target="_self">
+    <i class="fas fa-phone"></i>
+</a>
+<a href="https://www.google.com/maps/place/Kolhapur+Maharashtra" class="floating-map" target="_blank">
+    <i class="fas fa-map-marker-alt"></i>
+</a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-i18n="footerAboutTitle">Kmart बद्दल</h3>
+                <ul>
+                    <li><a href="#" data-i18n="footerAboutLink">आमच्याबद्दल</a></li>
+                    <li><a href="#" data-i18n="footerCareerLink">करिअर</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; २०२४ Kmart. सर्व हक्क राखीव.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language translations object (same as previous)
+        const translations = {
+            mr: {
+                // Add all Marathi translations
+                logo: '🛒 Kmart',
+                tagline: 'तुमचे स्थानिक बाजार',
+                searchPlaceholder: 'उत्पादने शोधा...',
+                searchBtn: '🔍 शोधा',
+                profile: '👤 माझे प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नवीन उत्पादने',
+                navBest: 'सर्वोत्कृष्ट विक्रेते',
+                navOffers: 'ऑफर्स',
+                navContact: 'संपर्क करा',
+                navAbout: 'आमच्याबद्दल',
+                contactHeroTitle: '📞 संपर्क करा',
+                contactHeroDesc: 'आम्ही तुमच्या मदतीसाठी २४/७ तयार आहोत. कधीही संपर्क करा.',
+                getInTouch: 'आमच्याशी संपर्क साधा',
+                address: 'पत्ता',
+                addressLine: 'Kmart हेड ऑफिस, बाणेर रोड, पुणे, महाराष्ट्र - ४११०४५',
+                phone: 'फोन नंबर',
+                email: 'ईमेल',
+                hours: 'कार्यालयीन वेळ',
+                hoursDetail: 'सोमवार - शनिवार: सकाळी ९ ते रात्री ८\nरविवार: सकाळी १० ते संध्याकाळी ६',
+                sendMessage: 'आम्हाला संदेश पाठवा',
+                name: 'तुमचे नाव *',
+                namePlaceholder: 'तुमचे नाव',
+                emailLabel: 'ईमेल *',
+                emailPlaceholder: 'तुमचा ईमेल',
+                phoneLabel: 'फोन नंबर',
+                phonePlaceholder: 'तुमचा फोन नंबर',
+                subject: 'विषय *',
+                subjectPlaceholder: 'विषय',
+                message: 'संदेश *',
+                messagePlaceholder: 'तुमचा संदेश',
+                sendBtn: 'संदेश पाठवा',
+                followUs: 'आम्हाला फॉलो करा',
+                faqTitle: 'वारंवार विचारले जाणारे प्रश्न',
+                faq1: 'ऑर्डरची स्थिती कशी तपासायची?',
+                faq1Ans: 'तुम्ही आमच्या वेबसाइटवर "माझे प्रोफाइल" मध्ये लॉग इन करून ऑर्डर स्थिती तपासू शकता.',
+                faq2: 'रिटर्न पॉलिसी काय आहे?',
+                faq2Ans: 'आम्ही ७ दिवसांची रिटर्न पॉलिसी ऑफर करतो. उत्पादन प्राप्त झाल्यापासून ७ दिवसांत रिटर्न करू शकता.',
+                faq3: 'पेमेंट पर्याय कोणते?',
+                faq3Ans: 'आम्ही क्रेडिट कार्ड, डेबिट कार्ड, UPI, नेट बँकिंग आणि COD सुविधा देतो.',
+                faq4: 'शिपिंग चार्जेस किती?',
+                faq4Ans: '₹५०० पेक्षा जास्त खरेदीवर शिपिंग फ्री आहे. त्याखाली ₹५० चार्जेस लागू.',
+                footerAboutTitle: 'Kmart बद्दल',
+                footerAboutLink: 'आमच्याबद्दल',
+                footerCareerLink: 'करिअर',
+                footerCopyright: '© २०२४ Kmart. सर्व हक्क राखीव.'
+            },
+            hi: {
+                // Add all Hindi translations
+                logo: '🛒 Kmart',
+                tagline: 'आपका स्थानीय बाजार',
+                searchPlaceholder: 'उत्पाद खोजें...',
+                searchBtn: '🔍 खोजें',
+                profile: '👤 मेरी प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नए उत्पाद',
+                navBest: 'सर्वाधिक बिक्री',
+                navOffers: 'ऑफ़र्स',
+                navContact: 'संपर्क करें',
+                navAbout: 'हमारे बारे में',
+                contactHeroTitle: '📞 संपर्क करें',
+                contactHeroDesc: 'हम आपकी मदद के लिए २४/७ तैयार हैं। कभी भी संपर्क करें।',
+                getInTouch: 'हमसे संपर्क करें',
+                address: 'पता',
+                addressLine: 'Kmart हेड ऑफिस, बाणेर रोड, पुणे, महाराष्ट्र - ४११०४५',
+                phone: 'फोन नंबर',
+                email: 'ईमेल',
+                hours: 'कार्यालयीन समय',
+                hoursDetail: 'सोमवार - शनिवार: सुबह ९ से रात ८\nरविवार: सुबह १० से शाम ६',
+                sendMessage: 'हमें संदेश भेजें',
+                name: 'आपका नाम *',
+                namePlaceholder: 'आपका नाम',
+                emailLabel: 'ईमेल *',
+                emailPlaceholder: 'आपका ईमेल',
+                phoneLabel: 'फोन नंबर',
+                phonePlaceholder: 'आपका फोन नंबर',
+                subject: 'विषय *',
+                subjectPlaceholder: 'विषय',
+                message: 'संदेश *',
+                messagePlaceholder: 'आपका संदेश',
+                sendBtn: 'संदेश भेजें',
+                followUs: 'हमें फॉलो करें',
+                faqTitle: 'अक्सर पूछे जाने वाले प्रश्न',
+                faq1: 'ऑर्डर की स्थिति कैसे जांचें?',
+                faq1Ans: 'आप हमारी वेबसाइट पर "मेरी प्रोफाइल" में लॉग इन करके ऑर्डर स्थिति जांच सकते हैं।',
+                faq2: 'रिटर्न पॉलिसी क्या है?',
+                faq2Ans: 'हम ७ दिन की रिटर्न पॉलिसी ऑफर करते हैं। उत्पाद प्राप्त होने के ७ दिनों के भीतर रिटर्न कर सकते हैं।',
+                faq3: 'पेमेंट विकल्प क्या हैं?',
+                faq3Ans: 'हम क्रेडिट कार्ड, डेबिट कार्ड, UPI, नेट बैंकिंग और COD सुविधा देते हैं।',
+                faq4: 'शिपिंग शुल्क कितना है?',
+                faq4Ans: '₹५०० से अधिक की खरीद पर शिपिंग मुफ्त है। उससे कम पर ₹५० शुल्क लागू।',
+                footerAboutTitle: 'Kmart के बारे में',
+                footerAboutLink: 'हमारे बारे में',
+                footerCareerLink: 'करियर',
+                footerCopyright: '© २०२४ Kmart. सर्वाधिकार सुरक्षित.'
+            },
+            en: {
+                // Add all English translations
+                logo: '🛒 Kmart',
+                tagline: 'Your Local Market',
+                searchPlaceholder: 'Search products...',
+                searchBtn: '🔍 Search',
+                profile: '👤 My Profile',
+                cart: '🛒 Cart (0)',
+                navHome: 'Home',
+                navNew: 'New Products',
+                navBest: 'Best Sellers',
+                navOffers: 'Offers',
+                navContact: 'Contact Us',
+                navAbout: 'About Us',
+                contactHeroTitle: '📞 Contact Us',
+                contactHeroDesc: 'We are available 24/7 to help you. Contact us anytime.',
+                getInTouch: 'Get in Touch',
+                address: 'Address',
+                addressLine: 'Kmart Head Office, Baner Road, Pune, Maharashtra - 411045',
+                phone: 'Phone Number',
+                email: 'Email',
+                hours: 'Office Hours',
+                hoursDetail: 'Monday - Saturday: 9 AM to 8 PM\nSunday: 10 AM to 6 PM',
+                sendMessage: 'Send us a Message',
+                name: 'Your Name *',
+                namePlaceholder: 'Your Name',
+                emailLabel: 'Email *',
+                emailPlaceholder: 'Your Email',
+                phoneLabel: 'Phone Number',
+                phonePlaceholder: 'Your Phone Number',
+                subject: 'Subject *',
+                subjectPlaceholder: 'Subject',
+                message: 'Message *',
+                messagePlaceholder: 'Your Message',
+                sendBtn: 'Send Message',
+                followUs: 'Follow Us',
+                faqTitle: 'Frequently Asked Questions',
+                faq1: 'How to check order status?',
+                faq1Ans: 'You can check order status by logging into "My Profile" on our website.',
+                faq2: 'What is the return policy?',
+                faq2Ans: 'We offer 7 days return policy. You can return within 7 days of receiving the product.',
+                faq3: 'What are payment options?',
+                faq3Ans: 'We accept Credit Card, Debit Card, UPI, Net Banking and COD.',
+                faq4: 'What are shipping charges?',
+                faq4Ans: 'Shipping is free on orders above ₹500. Below that, ₹50 charges apply.',
+                footerAboutTitle: 'About Kmart',
+                footerAboutLink: 'About Us',
+                footerCareerLink: 'Careers',
+                footerCopyright: '© 2024 Kmart. All rights reserved.'
+            }
+        };
+
+        // Language switching function
+        function switchLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Load saved language
+        window.onload = function() {
+            const savedLang = localStorage.getItem('preferred-language') || 'mr';
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent.includes('मराठी') && savedLang === 'mr') btn.classList.add('active');
+                if(btn.textContent.includes('हिन्दी') && savedLang === 'hi') btn.classList.add('active');
+                if(btn.textContent.includes('English') && savedLang === 'en') btn.classList.add('active');
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[savedLang][key]) {
+                    element.textContent = translations[savedLang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[savedLang][key]) {
+                    element.placeholder = translations[savedLang][key];
+                }
+            });
+
+            // Form submission handling
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert(translations[savedLang].submitSuccess || 'तुमचा संदेश पाठवला गेला आहे!');
+            });
+        };
+    </script>
+</body>
+</html>

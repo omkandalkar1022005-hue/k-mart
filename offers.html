@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kmart - ऑफर्स | Offers</title>
+    <style>
+        /* Same header styles as before */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .logo p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            flex: 0 1 400px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.5rem;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-cart {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-cart a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+        
+        .nav-bar {
+            background: white;
+            padding: 0.5rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 110px;
+            width: 100%;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #667eea;
+        }
+
+        body {
+            padding-top: 160px;
+            background: #f8f9fa;
+        }
+
+        /* Offers Page Specific Styles */
+        .page-hero {
+            background: linear-gradient(135deg, #50f276, #ab8ec8);
+            color: rgb(15, 14, 14);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .timer-box {
+            background: rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            min-width: 120px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .timer-box span {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            color: #333;
+        }
+
+        .timer-box small {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .offers-section {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .offer-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .offer-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .offer-banner p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .offer-banner button {
+            padding: 1rem 3rem;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .offer-banner button:hover {
+            transform: scale(1.05);
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 4rem;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .offer-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(255,107,107,0.3);
+        }
+
+        .offer-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-image img {
+            max-width: 80%;
+            max-height: 80%;
+            transition: 0.5s;
+        }
+
+        .offer-card:hover .offer-image img {
+            transform: scale(1.1);
+        }
+
+        .offer-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .offer-content h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .offer-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .offer-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .original-price {
+            font-size: 1.2rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .offer-validity {
+            color: #28a745;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .claim-offer-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .claim-offer-btn:hover {
+            background: #ff8e53;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+
+        .coupon-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .coupon-section h2 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .coupon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+
+        .coupon-card {
+            border: 2px dashed #ff6b6b;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+            background: #fff;
+        }
+
+        .coupon-card:hover {
+            background: #fff5f5;
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(255,107,107,0.2);
+        }
+
+        .coupon-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .coupon-code {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            letter-spacing: 3px;
+            margin: 1.5rem 0;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+
+        .coupon-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .copy-btn {
+            padding: 0.8rem 2rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #ff8e53;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 4rem 5% 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: #ccc;
+        }
+
+        /* Social Media & Floating Elements */
+        .follow {
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .follow h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .social a {
+            color: #667eea;
+            font-size: 32px;
+            transition: 0.3s;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .social a:hover {
+            color: #ff6b6b;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(255,107,107,0.3);
+        }
+
+        .floating-call, .floating-map {
+            position: fixed;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 55px;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .floating-call {
+            bottom: 100px;
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-map {
+            bottom: 30px;
+            background: #dc3545;
+            animation: pulse 2s infinite 1s;
+        }
+
+        .floating-call:hover, .floating-map:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .timer-box {
+                min-width: 80px;
+                padding: 1rem;
+            }
+            
+            .timer-box span {
+                font-size: 1.8rem;
+            }
+            
+            .offer-banner h2 {
+                font-size: 1.8rem;
+            }
+            
+            .offer-banner {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-header">
+            <div class="logo">
+                <h1 data-i18n="logo">🛒 Kmart</h1>
+                <p data-i18n="tagline">तुमचे स्थानिक बाजार</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" data-i18n-placeholder="searchPlaceholder" placeholder="उत्पादने शोधा...">
+                <button data-i18n="searchBtn">🔍 शोधा</button>
+            </div>
+            <div class="user-cart">
+                <a href="#" data-i18n="profile">👤 माझे प्रोफाइल</a>
+                <a href="#" data-i18n="cart">🛒 कार्ट (0)</a>
+                <div class="language-switcher">
+                    <button class="lang-btn active" onclick="switchLanguage('mr')">मराठी</button>
+                    <button class="lang-btn" onclick="switchLanguage('hi')">हिन्दी</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="index.html" data-i18n="navHome">मुखपृष्ठ</a></li>
+            <li><a href="newP.html" data-i18n="navNew">नवीन उत्पादने</a></li>
+            <li><a href="sel.html" data-i18n="navBest">सर्वोत्कृष्ट विक्रेते</a></li>
+            <li><a href="offers.html" class="active" data-i18n="navOffers">ऑफर्स</a></li>
+            <li><a href="contact.html" data-i18n="navContact">संपर्क करा</a></li>
+            <li><a href="about.html" data-i18n="navAbout">आमच्याबद्दल</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <h1 data-i18n="offersHeroTitle">🎉 स्पेशल ऑफर्स</h1>
+        <p data-i18n="offersHeroDesc">मर्यादित काळासाठी खास सूट! आजच खरेदी करा.</p>
+        
+        <div class="countdown-timer">
+            <div class="timer-box">
+                <span id="hours">24</span>
+                <small data-i18n="hours">तास</small>
+            </div>
+            <div class="timer-box">
+                <span id="minutes">59</span>
+                <small data-i18n="minutes">मिनिटे</small>
+            </div>
+            <div class="timer-box">
+                <span id="seconds">59</span>
+                <small data-i18n="seconds">सेकंद</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Offers -->
+    <section class="offers-section">
+        <!-- Mega Offer Banner -->
+        <div class="offer-banner">
+            <h2 data-i18n="megaOfferTitle">🔥 मेगा सेल - ५०% पर्यंत सूट</h2>
+            <p data-i18n="megaOfferDesc">सर्व उत्पादनांवर भारी सवलत. घाई करा, ऑफर संपण्यापूर्वी खरेदी करा!</p>
+            <button onclick="window.location.href='fashion.html'" data-i18n="shopNowBtn">आत्ताच खरेदी करा</button>
+        </div>
+
+        <!-- Offers Grid -->
+        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: #333;" data-i18n="todaysDeals">आजच्या खास ऑफर्स</h2>
+        <div class="offers-grid">
+            <!-- Offer 1 - Smartphones -->
+            <div class="offer-card">
+                <div class="offer-tag" data-i18n="offer1Tag">५०% OFF</div>
+                <div class="offer-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23ff6b6b' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23ff6b6b'%3E📱%3C/text%3E%3C/svg%3E" alt="Smartphone Offer">
+                </div>
+                <div class="offer-content">
+                    <h3 data-i18n="offer1Title">स्मार्टफोन सेल</h3>
+                    <p data-i18n="offer1Desc">सर्व प्रीमियम स्मार्टफोनवर मोठी सूट</p>
+                    <div class="offer-price">
+                        <span data-i18n="offer1Price">₹२४,९९९</span> <span class="original-price" data-i18n="offer1Original">₹४९,९९९</span>
+                    </div>
+                    <div class="offer-validity">
+                        <i class="far fa-clock"></i>
+                        <span data-i18n="offer1Validity">ऑफर वैध: ३१ डिसेंबर पर्यंत</span>
+                    </div>
+                    <button class="claim-offer-btn" onclick="window.location.href='electronics.html'" data-i18n="claimOffer">ऑफर मिळवा</button>
+                </div>
+            </div>
+
+            <!-- Offer 2 - Fashion -->
+            <div class="offer-card">
+                <div class="offer-tag" data-i18n="offer2Tag">३०% OFF</div>
+                <div class="offer-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23ff6b6b' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23ff6b6b'%3E👕%3C/text%3E%3C/svg%3E" alt="Fashion Offer">
+                </div>
+                <div class="offer-content">
+                    <h3 data-i18n="offer2Title">फॅशन वीक ऑफर</h3>
+                    <p data-i18n="offer2Desc">ब्रँडेड कपड्यांवर विशेष सूट</p>
+                    <div class="offer-price">
+                        <span data-i18n="offer2Price">₹१,२९९</span> <span class="original-price" data-i18n="offer2Original">₹१,८९९</span>
+                    </div>
+                    <div class="offer-validity">
+                        <i class="far fa-clock"></i>
+                        <span data-i18n="offer2Validity">ऑफर वैध: ७ दिवस</span>
+                    </div>
+                    <button class="claim-offer-btn" onclick="window.location.href='fashion.html'" data-i18n="claimOffer">ऑफर मिळवा</button>
+                </div>
+            </div>
+
+            <!-- Offer 3 - Home Decor -->
+            <div class="offer-card">
+                <div class="offer-tag" data-i18n="offer3Tag">₹५०० OFF</div>
+                <div class="offer-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23ff6b6b' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23ff6b6b'%3E🏠%3C/text%3E%3C/svg%3E" alt="Home Decor Offer">
+                </div>
+                <div class="offer-content">
+                    <h3 data-i18n="offer3Title">होम डेकोर स्पेशल</h3>
+                    <p data-i18n="offer3Desc">घर सजावटीच्या वस्तूंवर सूट</p>
+                    <div class="offer-price">
+                        <span data-i18n="offer3Price">₹१,९९९</span> <span class="original-price" data-i18n="offer3Original">₹२,४९९</span>
+                    </div>
+                    <div class="offer-validity">
+                        <i class="far fa-clock"></i>
+                        <span data-i18n="offer3Validity">ऑफर वैध: ५ दिवस</span>
+                    </div>
+                    <button class="claim-offer-btn" onclick="window.location.href='homedec.html'" data-i18n="claimOffer">ऑफर मिळवा</button>
+                </div>
+            </div>
+
+            <!-- Offer 4 - Sports -->
+            <div class="offer-card">
+                <div class="offer-tag" data-i18n="offer4Tag">४०% OFF</div>
+                <div class="offer-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23ff6b6b' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23ff6b6b'%3E⚽%3C/text%3E%3C/svg%3E" alt="Sports Offer">
+                </div>
+                <div class="offer-content">
+                    <h3 data-i18n="offer4Title">स्पोर्ट्स सेल</h3>
+                    <p data-i18n="offer4Desc">स्पोर्ट्स उपकरणांवर मोठी सूट</p>
+                    <div class="offer-price">
+                        <span data-i18n="offer4Price">₹२,९९९</span> <span class="original-price" data-i18n="offer4Original">₹४,९९९</span>
+                    </div>
+                    <div class="offer-validity">
+                        <i class="far fa-clock"></i>
+                        <span data-i18n="offer4Validity">ऑफर वैध: १० दिवस</span>
+                    </div>
+                    <button class="claim-offer-btn" onclick="window.location.href='sports.html'" data-i18n="claimOffer">ऑफर मिळवा</button>
+                </div>
+            </div>
+
+            <!-- Offer 5 - Books -->
+            <div class="offer-card">
+                <div class="offer-tag" data-i18n="offer5Tag">बाय वन गेट वन</div>
+                <div class="offer-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23ff6b6b' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23ff6b6b'%3E📚%3C/text%3E%3C/svg%3E" alt="Books Offer">
+                </div>
+                <div class="offer-content">
+                    <h3 data-i18n="offer5Title">पुस्तक ऑफर</h3>
+                    <p data-i18n="offer5Desc">एक पुस्तक विकत घ्या, एक मोफत</p>
+                    <div class="offer-price">
+                        <span data-i18n="offer5Price">₹२९९ पासून</span>
+                    </div>
+                    <div class="offer-validity">
+                        <i class="far fa-clock"></i>
+                        <span data-i18n="offer5Validity">ऑफर वैध: संपूर्ण वर्ष</span>
+                    </div>
+                    <button class="claim-offer-btn" onclick="window.location.href='books.html'" data-i18n="claimOffer">ऑफर मिळवा</button>
+                </div>
+            </div>
+
+            <!-- Offer 6 - Electronics -->
+            <div class="offer-card">
+                <div class="offer-tag" data-i18n="offer6Tag">₹१००० OFF</div>
+                <div class="offer-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23ff6b6b' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23ff6b6b'%3E💻%3C/text%3E%3C/svg%3E" alt="Electronics Offer">
+                </div>
+                <div class="offer-content">
+                    <h3 data-i18n="offer6Title">लॅपटॉप सेल</h3>
+                    <p data-i18n="offer6Desc">सर्व लॅपटॉपवर तात्काळ सूट</p>
+                    <div class="offer-price">
+                        <span data-i18n="offer6Price">₹४९,९९९</span> <span class="original-price" data-i18n="offer6Original">₹५०,९९९</span>
+                    </div>
+                    <div class="offer-validity">
+                        <i class="far fa-clock"></i>
+                        <span data-i18n="offer6Validity">ऑफर वैध: ३ दिवस</span>
+                    </div>
+                    <button class="claim-offer-btn" onclick="window.location.href='electronics.html'" data-i18n="claimOffer">ऑफर मिळवा</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coupon Section -->
+        <div class="coupon-section">
+            <h2 style="text-align: center;" data-i18n="couponTitle">🎟️ खास कूपन कोड्स</h2>
+            <div class="coupon-grid">
+                <div class="coupon-card">
+                    <h3 data-i18n="coupon1Title">नवीन ग्राहक ऑफर</h3>
+                    <div class="coupon-code">KMART50</div>
+                    <p data-i18n="coupon1Desc">पहिल्या खरेदीवर ₹५०० सूट</p>
+                    <button class="copy-btn" onclick="copyCode('KMART50', this)" data-i18n="copyCode">कोड कॉपी करा</button>
+                </div>
+                <div class="coupon-card">
+                    <h3 data-i18n="coupon2Title">फ्री शिपिंग</h3>
+                    <div class="coupon-code">FREESHIP</div>
+                    <p data-i18n="coupon2Desc">₹५०० पेक्षा जास्त खरेदीवर मोफत डिलिव्हरी</p>
+                    <button class="copy-btn" onclick="copyCode('FREESHIP', this)" data-i18n="copyCode">कोड कॉपी करा</button>
+                </div>
+                <div class="coupon-card">
+                    <h3 data-i18n="coupon3Title">फेस्टिवल स्पेशल</h3>
+                    <div class="coupon-code">FEST15</div>
+                    <p data-i18n="coupon3Desc">सर्व खरेदीवर १५% अतिरिक्त सूट</p>
+                    <button class="copy-btn" onclick="copyCode('FEST15', this)" data-i18n="copyCode">कोड कॉपी करा</button>
+                </div>
+                <div class="coupon-card">
+                    <h3 data-i18n="coupon4Title">बँक ऑफर</h3>
+                    <div class="coupon-code">HDFC10</div>
+                    <p data-i18n="coupon4Desc">HDFC कार्डधारकांसाठी १०% सूट</p>
+                    <button class="copy-btn" onclick="copyCode('HDFC10', this)" data-i18n="copyCode">कोड कॉपी करा</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Follow Section -->
+    <div class="follow">
+        <h2 data-i18n="followUs">Follow Us</h2>
+        <div class="social">
+            <a href="https://www.instagram.com/om____1199?igsh=ZXNtZm15aGNxZ3Rp" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://youtube.com/@omkandalkar326?si=peEW-RMoxGJrXM2g" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.facebook.com/" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://wa.me/8275761213" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <a href="tel:+918275761213" class="floating-call" target="_self">
+        <i class="fas fa-phone"></i>
+    </a>
+    <a href="https://www.google.com/maps/place/Kolhapur+Maharashtra" class="floating-map" target="_blank">
+        <i class="fas fa-map-marker-alt"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-i18n="aboutTitle">Kmart बद्दल</h3>
+                <ul>
+                    <li><a href="about.html" data-i18n="aboutLink">आमच्याबद्दल</a></li>
+                    <li><a href="#" data-i18n="careerLink">करिअर</a></li>
+                    <li><a href="#" data-i18n="blogLink">ब्लॉग</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="helpTitle">मदत आणि समर्थन</h3>
+                <ul>
+                    <li><a href="#" data-i18n="orderStatus">ऑर्डर स्थिती</a></li>
+                    <li><a href="#" data-i18n="returnPolicy">रिटर्न पॉलिसी</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="contactTitle">संपर्क करा</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +91 8275761213</li>
+                    <li><i class="fas fa-envelope"></i> support@kmart.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="copyright">© २०२४ Kmart. सर्व हक्क राखीव.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language translations
+        const translations = {
+            mr: { // Marathi
+                logo: '🛒 Kmart',
+                tagline: 'तुमचे स्थानिक बाजार',
+                searchPlaceholder: 'उत्पादने शोधा...',
+                searchBtn: '🔍 शोधा',
+                profile: '👤 माझे प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नवीन उत्पादने',
+                navBest: 'सर्वोत्कृष्ट विक्रेते',
+                navOffers: 'ऑफर्स',
+                navContact: 'संपर्क करा',
+                navAbout: 'आमच्याबद्दल',
+                offersHeroTitle: '🎉 स्पेशल ऑफर्स',
+                offersHeroDesc: 'मर्यादित काळासाठी खास सूट! आजच खरेदी करा.',
+                hours: 'तास',
+                minutes: 'मिनिटे',
+                seconds: 'सेकंद',
+                megaOfferTitle: '🔥 मेगा सेल - ५०% पर्यंत सूट',
+                megaOfferDesc: 'सर्व उत्पादनांवर भारी सवलत. घाई करा, ऑफर संपण्यापूर्वी खरेदी करा!',
+                shopNowBtn: 'आत्ताच खरेदी करा',
+                todaysDeals: 'आजच्या खास ऑफर्स',
+                offer1Tag: '५०% OFF',
+                offer1Title: 'स्मार्टफोन सेल',
+                offer1Desc: 'सर्व प्रीमियम स्मार्टफोनवर मोठी सूट',
+                offer1Price: '₹२४,९९९',
+                offer1Original: '₹४९,९९९',
+                offer1Validity: 'ऑफर वैध: ३१ डिसेंबर पर्यंत',
+                offer2Tag: '३०% OFF',
+                offer2Title: 'फॅशन वीक ऑफर',
+                offer2Desc: 'ब्रँडेड कपड्यांवर विशेष सूट',
+                offer2Price: '₹१,२९९',
+                offer2Original: '₹१,८९९',
+                offer2Validity: 'ऑफर वैध: ७ दिवस',
+                offer3Tag: '₹५०० OFF',
+                offer3Title: 'होम डेकोर स्पेशल',
+                offer3Desc: 'घर सजावटीच्या वस्तूंवर सूट',
+                offer3Price: '₹१,९९९',
+                offer3Original: '₹२,४९९',
+                offer3Validity: 'ऑफर वैध: ५ दिवस',
+                offer4Tag: '४०% OFF',
+                offer4Title: 'स्पोर्ट्स सेल',
+                offer4Desc: 'स्पोर्ट्स उपकरणांवर मोठी सूट',
+                offer4Price: '₹२,९९९',
+                offer4Original: '₹४,९९९',
+                offer4Validity: 'ऑफर वैध: १० दिवस',
+                offer5Tag: 'बाय वन गेट वन',
+                offer5Title: 'पुस्तक ऑफर',
+                offer5Desc: 'एक पुस्तक विकत घ्या, एक मोफत',
+                offer5Price: '₹२९९ पासून',
+                offer5Validity: 'ऑफर वैध: संपूर्ण वर्ष',
+                offer6Tag: '₹१००० OFF',
+                offer6Title: 'लॅपटॉप सेल',
+                offer6Desc: 'सर्व लॅपटॉपवर तात्काळ सूट',
+                offer6Price: '₹४९,९९९',
+                offer6Original: '₹५०,९९९',
+                offer6Validity: 'ऑफर वैध: ३ दिवस',
+                claimOffer: 'ऑफर मिळवा',
+                couponTitle: '🎟️ खास कूपन कोड्स',
+                coupon1Title: 'नवीन ग्राहक ऑफर',
+                coupon1Desc: 'पहिल्या खरेदीवर ₹५०० सूट',
+                coupon2Title: 'फ्री शिपिंग',
+                coupon2Desc: '₹५०० पेक्षा जास्त खरेदीवर मोफत डिलिव्हरी',
+                coupon3Title: 'फेस्टिवल स्पेशल',
+                coupon3Desc: 'सर्व खरेदीवर १५% अतिरिक्त सूट',
+                coupon4Title: 'बँक ऑफर',
+                coupon4Desc: 'HDFC कार्डधारकांसाठी १०% सूट',
+                copyCode: 'कोड कॉपी करा',
+                followUs: 'आमचे अनुसरण करा',
+                aboutTitle: 'Kmart बद्दल',
+                aboutLink: 'आमच्याबद्दल',
+                careerLink: 'करिअर',
+                blogLink: 'ब्लॉग',
+                helpTitle: 'मदत आणि समर्थन',
+                orderStatus: 'ऑर्डर स्थिती',
+                returnPolicy: 'रिटर्न पॉलिसी',
+                contactTitle: 'संपर्क करा',
+                copyright: '© २०२४ Kmart. सर्व हक्क राखीव.'
+            },
+            hi: { // Hindi
+                logo: '🛒 Kmart',
+                tagline: 'आपका स्थानीय बाजार',
+                searchPlaceholder: 'उत्पाद खोजें...',
+                searchBtn: '🔍 खोजें',
+                profile: '👤 मेरी प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नए उत्पाद',
+                navBest: 'सर्वाधिक बिक्री',
+                navOffers: 'ऑफ़र्स',
+                navContact: 'संपर्क करें',
+                navAbout: 'हमारे बारे में',
+                offersHeroTitle: '🎉 स्पेशल ऑफ़र्स',
+                offersHeroDesc: 'सीमित समय के लिए खास छूट! आज ही खरीदें।',
+                hours: 'घंटे',
+                minutes: 'मिनट',
+                seconds: 'सेकंड',
+                megaOfferTitle: '🔥 मेगा सेल - ५०% तक की छूट',
+                megaOfferDesc: 'सभी उत्पादों पर भारी छूट। जल्दी करें, ऑफर खत्म होने से पहले खरीदें!',
+                shopNowBtn: 'अभी खरीदें',
+                todaysDeals: 'आज के खास ऑफ़र्स',
+                offer1Tag: '५०% OFF',
+                offer1Title: 'स्मार्टफोन सेल',
+                offer1Desc: 'सभी प्रीमियम स्मार्टफोन पर बड़ी छूट',
+                offer1Price: '₹२४,९९९',
+                offer1Original: '₹४९,९९९',
+                offer1Validity: 'ऑफर वैध: ३१ दिसंबर तक',
+                offer2Tag: '३०% OFF',
+                offer2Title: 'फैशन वीक ऑफर',
+                offer2Desc: 'ब्रांडेड कपड़ों पर विशेष छूट',
+                offer2Price: '₹१,२९९',
+                offer2Original: '₹१,८९९',
+                offer2Validity: 'ऑफर वैध: ७ दिन',
+                offer3Tag: '₹५०० OFF',
+                offer3Title: 'होम डेकोर स्पेशल',
+                offer3Desc: 'घर की सजावट की वस्तुओं पर छूट',
+                offer3Price: '₹१,९९९',
+                offer3Original: '₹२,४९९',
+                offer3Validity: 'ऑफर वैध: ५ दिन',
+                offer4Tag: '४०% OFF',
+                offer4Title: 'स्पोर्ट्स सेल',
+                offer4Desc: 'खेल उपकरणों पर बड़ी छूट',
+                offer4Price: '₹२,९९९',
+                offer4Original: '₹४,९९९',
+                offer4Validity: 'ऑफर वैध: १० दिन',
+                offer5Tag: 'खरीदें एक पाएं एक',
+                offer5Title: 'किताब ऑफर',
+                offer5Desc: 'एक किताब खरीदें, एक मुफ्त',
+                offer5Price: '₹२९९ से',
+                offer5Validity: 'ऑफर वैध: पूरे साल',
+                offer6Tag: '₹१००० OFF',
+                offer6Title: 'लैपटॉप सेल',
+                offer6Desc: 'सभी लैपटॉप पर तत्काल छूट',
+                offer6Price: '₹४९,९९९',
+                offer6Original: '₹५०,९९९',
+                offer6Validity: 'ऑफर वैध: ३ दिन',
+                claimOffer: 'ऑफर पाएं',
+                couponTitle: '🎟️ खास कूपन कोड',
+                coupon1Title: 'नए ग्राहक ऑफर',
+                coupon1Desc: 'पहली खरीद पर ₹५०० की छूट',
+                coupon2Title: 'फ्री शिपिंग',
+                coupon2Desc: '₹५०० से अधिक की खरीद पर मुफ्त डिलीवरी',
+                coupon3Title: 'फेस्टिवल स्पेशल',
+                coupon3Desc: 'सभी खरीद पर १५% अतिरिक्त छूट',
+                coupon4Title: 'बैंक ऑफर',
+                coupon4Desc: 'HDFC कार्डधारकों के लिए १०% छूट',
+                copyCode: 'कोड कॉपी करें',
+                followUs: 'हमें फॉलो करें',
+                aboutTitle: 'Kmart के बारे में',
+                aboutLink: 'हमारे बारे में',
+                careerLink: 'करियर',
+                blogLink: 'ब्लॉग',
+                helpTitle: 'मदद और समर्थन',
+                orderStatus: 'ऑर्डर स्थिति',
+                returnPolicy: 'वापसी नीति',
+                contactTitle: 'संपर्क करें',
+                copyright: '© २०२४ Kmart. सर्वाधिकार सुरक्षित.'
+            },
+            en: { // English
+                logo: '🛒 Kmart',
+                tagline: 'Your Local Market',
+                searchPlaceholder: 'Search products...',
+                searchBtn: '🔍 Search',
+                profile: '👤 My Profile',
+                cart: '🛒 Cart (0)',
+                navHome: 'Home',
+                navNew: 'New Products',
+                navBest: 'Best Sellers',
+                navOffers: 'Offers',
+                navContact: 'Contact Us',
+                navAbout: 'About Us',
+                offersHeroTitle: '🎉 Special Offers',
+                offersHeroDesc: 'Limited time exclusive discounts! Shop today.',
+                hours: 'Hours',
+                minutes: 'Minutes',
+                seconds: 'Seconds',
+                megaOfferTitle: '🔥 Mega Sale - Up to 50% Off',
+                megaOfferDesc: 'Huge discounts on all products. Hurry, shop before the offer ends!',
+                shopNowBtn: 'Shop Now',
+                todaysDeals: "Today's Special Offers",
+                offer1Tag: '50% OFF',
+                offer1Title: 'Smartphone Sale',
+                offer1Desc: 'Big discounts on all premium smartphones',
+                offer1Price: '₹24,999',
+                offer1Original: '₹49,999',
+                offer1Validity: 'Offer valid till: 31 December',
+                offer2Tag: '30% OFF',
+                offer2Title: 'Fashion Week Offer',
+                offer2Desc: 'Special discounts on branded clothes',
+                offer2Price: '₹1,299',
+                offer2Original: '₹1,899',
+                offer2Validity: 'Offer valid: 7 days',
+                offer3Tag: '₹500 OFF',
+                offer3Title: 'Home Decor Special',
+                offer3Desc: 'Discount on home decor items',
+                offer3Price: '₹1,999',
+                offer3Original: '₹2,499',
+                offer3Validity: 'Offer valid: 5 days',
+                offer4Tag: '40% OFF',
+                offer4Title: 'Sports Sale',
+                offer4Desc: 'Big discounts on sports equipment',
+                offer4Price: '₹2,999',
+                offer4Original: '₹4,999',
+                offer4Validity: 'Offer valid: 10 days',
+                offer5Tag: 'Buy One Get One',
+                offer5Title: 'Books Offer',
+                offer5Desc: 'Buy one book, get one free',
+                offer5Price: 'From ₹299',
+                offer5Validity: 'Offer valid: All year',
+                offer6Tag: '₹1000 OFF',
+                offer6Title: 'Laptop Sale',
+                offer6Desc: 'Instant discounts on all laptops',
+                offer6Price: '₹49,999',
+                offer6Original: '₹50,999',
+                offer6Validity: 'Offer valid: 3 days',
+                claimOffer: 'Claim Offer',
+                couponTitle: '🎟️ Special Coupon Codes',
+                coupon1Title: 'New Customer Offer',
+                coupon1Desc: '₹500 off on first purchase',
+                coupon2Title: 'Free Shipping',
+                coupon2Desc: 'Free delivery on orders above ₹500',
+                coupon3Title: 'Festival Special',
+                coupon3Desc: '15% extra discount on all purchases',
+                coupon4Title: 'Bank Offer',
+                coupon4Desc: '10% discount for HDFC card holders',
+                copyCode: 'Copy Code',
+                followUs: 'Follow Us',
+                aboutTitle: 'About Kmart',
+                aboutLink: 'About Us',
+                careerLink: 'Careers',
+                blogLink: 'Blog',
+                helpTitle: 'Help & Support',
+                orderStatus: 'Order Status',
+                returnPolicy: 'Return Policy',
+                contactTitle: 'Contact Us',
+                copyright: '© 2024 Kmart. All rights reserved.'
+            }
+        };
+
+        // Timer functionality
+        function startTimer(duration) {
+            let timer = duration, hours, minutes, seconds;
+            const interval = setInterval(() => {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    document.querySelector('.countdown-timer').innerHTML = '<h3 style="color:#333;">ऑफर संपली! / Offer Ended!</h3>';
+                }
+            }, 1000);
+        }
+
+        // Function to switch language
+        function switchLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'BUTTON') {
+                        if (element.classList.contains('copy-btn')) {
+                            element.textContent = translations[lang][key];
+                        } else {
+                            element.placeholder = translations[lang][key];
+                        }
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Copy coupon code function
+        function copyCode(code, button) {
+            navigator.clipboard.writeText(code);
+            const originalText = button.textContent;
+            const lang = localStorage.getItem('preferred-language') || 'mr';
+            if (lang === 'mr') button.textContent = 'कॉपी केले!';
+            else if (lang === 'hi') button.textContent = 'कॉपी हो गया!';
+            else button.textContent = 'Copied!';
+            
+            setTimeout(() => {
+                if (lang === 'mr') button.textContent = 'कोड कॉपी करा';
+                else if (lang === 'hi') button.textContent = 'कोड कॉपी करें';
+                else button.textContent = 'Copy Code';
+            }, 2000);
+        }
+
+        // Load saved language and start timer
+        window.onload = function() {
+            const savedLang = localStorage.getItem('preferred-language') || 'mr';
+            
+            // Set active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent.includes('मराठी') && savedLang === 'mr') btn.classList.add('active');
+                if(btn.textContent.includes('हिन्दी') && savedLang === 'hi') btn.classList.add('active');
+                if(btn.textContent.includes('English') && savedLang === 'en') btn.classList.add('active');
+            });
+            
+            // Apply translations
+            switchLanguage(savedLang);
+            
+            // Start timer with 24 hours (86400 seconds)
+            startTimer(86400);
+        };
+    </script>
+</body>
+</html>

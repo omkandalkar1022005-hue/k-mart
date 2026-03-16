@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kmart - About Us (आमच्याबद्दल)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .logo p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            flex: 0 1 400px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.5rem;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-cart {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-cart a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: white;
+            padding: 0.5rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 110px;
+            width: 100%;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #667eea;
+        }
+
+        body {
+            padding-top: 130px;
+            margin: 0;
+        }
+
+        /* About Us Hero Section */
+        .about-hero {
+            background: linear-gradient( #50f276 , #ab8ec8 );
+            color: rgb(22, 16, 16);
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Our Story Section */
+        .our-story {
+            padding: 5rem 5%;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background: white;
+        }
+
+        .story-content {
+            flex: 1;
+        }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .story-content h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #667eea;
+            margin-top: 10px;
+        }
+
+        .story-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .story-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .story-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Mission Vision Section */
+        .mission-vision {
+            padding: 5rem 5%;
+            background: #f8f9fa;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .mission-card, .vision-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .mission-card h3, .vision-card h3 {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card p, .vision-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 3rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .value-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 5rem 5%;
+            background: #f8f9fa;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .team-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+        }
+
+        .team-info h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .team-info p {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .team-social a {
+            color: #666;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .team-social a:hover {
+            color: #667eea;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }/* Social Media & Floating Elements */
+.follow {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.follow h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.social a {
+    color: #667eea;
+    font-size: 32px;
+    transition: 0.3s;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.social a:hover {
+    color: #ff6b6b;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(255,107,107,0.3);
+}
+
+.social a i {
+    font-size: 32px;
+}
+
+.floating-call, .floating-map {
+    position: fixed;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 55px;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.floating-call {
+    bottom: 100px;
+    background: #28a745;
+}
+
+.floating-map {
+    bottom: 30px;
+    background: #dc3545;
+}
+
+.floating-call:hover, .floating-map:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* Font Awesome Icons - Add this in head section */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .our-story {
+                flex-direction: column;
+            }
+
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-header">
+            <div class="logo">
+                <h1 data-i18n="logo">🛒 Kmart</h1>
+                <p data-i18n="tagline">तुमचे स्थानिक बाजार</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" data-i18n-placeholder="searchPlaceholder" placeholder="उत्पादने शोधा...">
+                <button data-i18n="searchBtn">🔍 शोधा</button>
+            </div>
+            <div class="user-cart">
+                <a href="#" data-i18n="profile">👤 माझे प्रोफाइल</a>
+                <a href="#" data-i18n="cart">🛒 कार्ट (0)</a>
+                <div class="language-switcher">
+                    <button class="lang-btn" onclick="switchLanguage('mr')">मराठी</button>
+                    <button class="lang-btn" onclick="switchLanguage('hi')">हिन्दी</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="index.html" data-i18n="navHome">मुखपृष्ठ</a></li>
+            <li><a href="newP.html" data-i18n="navNew">नवीन उत्पादने</a></li>
+            <li><a href="sel.html" data-i18n="navBest">सर्वोत्कृष्ट विक्रेते</a></li>
+            <li><a href="offers.html" data-i18n="navOffers">ऑफर्स</a></li>
+            <li><a href="contact.html" data-i18n="navContact">संपर्क करा</a></li>
+            <li><a href="about.html" class="active" data-i18n="navAbout">आमच्याबद्दल</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <h1 data-i18n="aboutHeroTitle">आमच्याबद्दल (About Us)</h1>
+        <p data-i18n="aboutHeroDesc">Kmart - तुमचा विश्वासू खरेदी साथीदार. गेली १० वर्षे ग्राहकांच्या सेवेत.</p>
+    </section>
+
+    <!-- Our Story -->
+    <section class="our-story">
+        <div class="story-content">
+            <h2 data-i18n="storyTitle">आमची कहाणी (Our Story)</h2>
+            <p data-i18n="storyPara1">Kmart ची सुरुवात २०१४ मध्ये एका छोट्या दुकानातून झाली. आज आम्ही महाराष्ट्रभर ५०+ स्टोर्स आणि ऑनलाइन प्लॅटफॉर्मद्वारे ग्राहकांना सेवा देत आहोत.</p>
+            <p data-i18n="storyPara2">आमचा उद्देश फक्त व्यवसाय नसून ग्राहकांना सर्वोत्तम दर्जाची उत्पादने परवडणाऱ्या किमतीत उपलब्ध करून देणे हा आहे. आम्ही नेहमीच ग्राहकांचा विश्वास आणि समाधान याला प्राधान्य दिले आहे.</p>
+            <p data-i18n="storyPara3">आज Kmart म्हणजे केवळ एक स्टोअर नसून एक ब्रँड आहे जो गुणवत्ता, विश्वासार्हता आणि उत्तम सेवा यासाठी ओळखला जातो.</p>
+        </div>
+        <div class="story-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23667eea' opacity='0.1'/%3E%3Ctext x='80' y='150' font-family='Arial' font-size='24' fill='%23667eea'%3E🏢 Kmart Store%3C/text%3E%3C/svg%3E" alt="Kmart Store">
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="mission-card">
+            <h3 data-i18n="missionTitle">🚀 आमचे ध्येय (Mission)</h3>
+            <p data-i18n="missionDesc">ग्राहकांना सर्वोत्तम दर्जाची उत्पादने सर्वात स्पर्धात्मक किमतीत उपलब्ध करून देणे आणि खरेदीचा आनंददायी अनुभव प्रदान करणे.</p>
+        </div>
+        <div class="vision-card">
+            <h3 data-i18n="visionTitle">👁️ आमचे स्वप्न (Vision)</h3>
+            <p data-i18n="visionDesc">महाराष्ट्रातील प्रत्येक घरापर्यंत पोहोचणे आणि सर्वात विश्वासू ऑनलाइन मार्ट म्हणून ओळखले जाणे.</p>
+        </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="values">
+        <h2 class="section-title" data-i18n="valuesTitle">आमची मूल्ये (Our Values)</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">❤️</div>
+                <h3 data-i18n="value1Title">ग्राहक प्रथम</h3>
+                <p data-i18n="value1Desc">ग्राहकांचे समाधान हे आमचे सर्वोच्च प्राधान्य आहे.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">⭐</div>
+                <h3 data-i18n="value2Title">गुणवत्ता</h3>
+                <p data-i18n="value2Desc">प्रत्येक उत्पादनाची गुणवत्ता तपासल्यानंतरच विक्री.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3 data-i18n="value3Title">विश्वासार्हता</h3>
+                <p data-i18n="value3Desc">ग्राहकांचा विश्वास हीच आमची सर्वात मोठी भांडवल.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🌱</div>
+                <h3 data-i18n="value4Title">नावीन्य</h3>
+                <p data-i18n="value4Desc">नेहमी नवीन तंत्रज्ञान आणि सेवा आणण्याचा प्रयत्न.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <h2 class="section-title" data-i18n="teamTitle">आमची टीम (Our Team)</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-image">👨‍💼</div>
+                <div class="team-info">
+                    <h3 data-i18n="team1Name">राजेश पाटील</h3>
+                    <p data-i18n="team1Role">संस्थापक आणि सीईओ</p>
+                    <div class="team-social">
+                        <a href="#">📘</a>
+                        <a href="#">🐦</a>
+                        <a href="#">📷</a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">👩‍💼</div>
+                <div class="team-info">
+                    <h3 data-i18n="team2Name">प्रियांका देशमुख</h3>
+                    <p data-i18n="team2Role">ऑपरेशन्स हेड</p>
+                    <div class="team-social">
+                        <a href="#">📘</a>
+                        <a href="#">🐦</a>
+                        <a href="#">📷</a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">👨‍💻</div>
+                <div class="team-info">
+                    <h3 data-i18n="team3Name">सचिन जोशी</h3>
+                    <p data-i18n="team3Role">मार्केटिंग हेड</p>
+                    <div class="team-social">
+                        <a href="#">📘</a>
+                        <a href="#">🐦</a>
+                        <a href="#">📷</a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">👩‍💻</div>
+                <div class="team-info">
+                    <h3 data-i18n="team4Name">स्नेहा कुलकर्णी</h3>
+                    <p data-i18n="team4Role">ग्राहक सेवा प्रमुख</p>
+                    <div class="team-social">
+                        <a href="#">📘</a>
+                        <a href="#">🐦</a>
+                        <a href="#">📷</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stat-item">
+            <h3 data-i18n="stat1">५०+</h3>
+            <p data-i18n="stat1Label">स्टोर्स</p>
+        </div>
+        <div class="stat-item">
+            <h3 data-i18n="stat2">१०K+</h3>
+            <p data-i18n="stat2Label">उत्पादने</p>
+        </div>
+        <div class="stat-item">
+            <h3 data-i18n="stat3">१L+</h3>
+            <p data-i18n="stat3Label">खुश ग्राहक</p>
+        </div>
+        <div class="stat-item">
+            <h3 data-i18n="stat4">१०</h3>
+            <p data-i18n="stat4Label">वर्षांचा अनुभव</p>
+        </div>
+    </section><!-- Social Media Follow Section -->
+<div class="follow">
+    <h2 data-i18n="followUs">Follow Us</h2>
+    <div class="social">
+        <a href="https://www.instagram.com/om____1199?igsh=ZXNtZm15aGNxZ3Rp" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com/@omkandalkar326?si=peEW-RMoxGJrXM2g" target="_blank">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://wa.me/8275761213" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Floating Buttons -->
+<a href="tel:+918275761213" class="floating-call" target="_self">
+    <i class="fas fa-phone"></i>
+</a>
+<a href="https://www.google.com/maps/place/Kolhapur+Maharashtra" class="floating-map" target="_blank">
+    <i class="fas fa-map-marker-alt"></i>
+</a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-i18n="footerAboutTitle">Kmart बद्दल</h3>
+                <ul>
+                    <li><a href="#" data-i18n="footerAboutLink">आमच्याबद्दल</a></li>
+                    <li><a href="#" data-i18n="footerCareerLink">करिअर</a></li>
+                    <li><a href="#" data-i18n="footerBlogLink">ब्लॉग</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footerHelpTitle">मदत आणि समर्थन</h3>
+                <ul>
+                    <li><a href="#" data-i18n="footerOrderStatus">ऑर्डर स्थिती</a></li>
+                    <li><a href="#" data-i18n="footerReturnPolicy">रिटर्न पॉलिसी</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footerContactTitle">आमच्याशी संपर्क करा</h3>
+                <ul>
+                    <li>📞 +91 98765 43210</li>
+                    <li>📧 support@kmart.in</li>
+                    <li>📍 पुणे, महाराष्ट्र</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; २०२४ Kmart. सर्व हक्क राखीव.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language translations
+        const translations = {
+            mr: { // Marathi
+                logo: '🛒 Kmart',
+                tagline: 'तुमचे स्थानिक बाजार',
+                searchPlaceholder: 'उत्पादने शोधा...',
+                searchBtn: '🔍 शोधा',
+                profile: '👤 माझे प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नवीन उत्पादने',
+                navBest: 'सर्वोत्कृष्ट विक्रेते',
+                navOffers: 'ऑफर्स',
+                navContact: 'संपर्क करा',
+                navAbout: 'आमच्याबद्दल',
+                aboutHeroTitle: 'आमच्याबद्दल (About Us)',
+                aboutHeroDesc: 'Kmart - तुमचा विश्वासू खरेदी साथीदार. गेली १० वर्षे ग्राहकांच्या सेवेत.',
+                storyTitle: 'आमची कहाणी (Our Story)',
+                storyPara1: 'Kmart ची सुरुवात २०१४ मध्ये एका छोट्या दुकानातून झाली. आज आम्ही महाराष्ट्रभर ५०+ स्टोर्स आणि ऑनलाइन प्लॅटफॉर्मद्वारे ग्राहकांना सेवा देत आहोत.',
+                storyPara2: 'आमचा उद्देश फक्त व्यवसाय नसून ग्राहकांना सर्वोत्तम दर्जाची उत्पादने परवडणाऱ्या किमतीत उपलब्ध करून देणे हा आहे. आम्ही नेहमीच ग्राहकांचा विश्वास आणि समाधान याला प्राधान्य दिले आहे.',
+                storyPara3: 'आज Kmart म्हणजे केवळ एक स्टोअर नसून एक ब्रँड आहे जो गुणवत्ता, विश्वासार्हता आणि उत्तम सेवा यासाठी ओळखला जातो.',
+                missionTitle: '🚀 आमचे ध्येय (Mission)',
+                missionDesc: 'ग्राहकांना सर्वोत्तम दर्जाची उत्पादने सर्वात स्पर्धात्मक किमतीत उपलब्ध करून देणे आणि खरेदीचा आनंददायी अनुभव प्रदान करणे.',
+                visionTitle: '👁️ आमचे स्वप्न (Vision)',
+                visionDesc: 'महाराष्ट्रातील प्रत्येक घरापर्यंत पोहोचणे आणि सर्वात विश्वासू ऑनलाइन मार्ट म्हणून ओळखले जाणे.',
+                valuesTitle: 'आमची मूल्ये (Our Values)',
+                value1Title: 'ग्राहक प्रथम',
+                value1Desc: 'ग्राहकांचे समाधान हे आमचे सर्वोच्च प्राधान्य आहे.',
+                value2Title: 'गुणवत्ता',
+                value2Desc: 'प्रत्येक उत्पादनाची गुणवत्ता तपासल्यानंतरच विक्री.',
+                value3Title: 'विश्वासार्हता',
+                value3Desc: 'ग्राहकांचा विश्वास हीच आमची सर्वात मोठी भांडवल.',
+                value4Title: 'नावीन्य',
+                value4Desc: 'नेहमी नवीन तंत्रज्ञान आणि सेवा आणण्याचा प्रयत्न.',
+                teamTitle: 'आमची टीम (Our Team)',
+                team1Name: 'राजेश पाटील',
+                team1Role: 'संस्थापक आणि सीईओ',
+                team2Name: 'प्रियांका देशमुख',
+                team2Role: 'ऑपरेशन्स हेड',
+                team3Name: 'सचिन जोशी',
+                team3Role: 'मार्केटिंग हेड',
+                team4Name: 'स्नेहा कुलकर्णी',
+                team4Role: 'ग्राहक सेवा प्रमुख',
+                stat1: '५०+',
+                stat1Label: 'स्टोर्स',
+                stat2: '१०K+',
+                stat2Label: 'उत्पादने',
+                stat3: '१L+',
+                stat3Label: 'खुश ग्राहक',
+                stat4: '१०',
+                stat4Label: 'वर्षांचा अनुभव',
+                footerAboutTitle: 'Kmart बद्दल',
+                footerAboutLink: 'आमच्याबद्दल',
+                footerCareerLink: 'करिअर',
+                footerBlogLink: 'ब्लॉग',
+                footerHelpTitle: 'मदत आणि समर्थन',
+                footerOrderStatus: 'ऑर्डर स्थिती',
+                footerReturnPolicy: 'रिटर्न पॉलिसी',
+                footerContactTitle: 'आमच्याशी संपर्क करा',
+                footerCopyright: '© २०२४ Kmart. सर्व हक्क राखीव.'
+            },
+            hi: { // Hindi
+                logo: '🛒 Kmart',
+                tagline: 'आपका स्थानीय बाजार',
+                searchPlaceholder: 'उत्पाद खोजें...',
+                searchBtn: '🔍 खोजें',
+                profile: '👤 मेरी प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नए उत्पाद',
+                navBest: 'सर्वाधिक बिक्री',
+                navOffers: 'ऑफ़र्स',
+                navContact: 'संपर्क करें',
+                navAbout: 'हमारे बारे में',
+                aboutHeroTitle: 'हमारे बारे में (About Us)',
+                aboutHeroDesc: 'Kmart - आपका विश्वसनीय खरीदारी साथी। पिछले १० वर्षों से ग्राहकों की सेवा में।',
+                storyTitle: 'हमारी कहानी (Our Story)',
+                storyPara1: 'Kmart की शुरुआत २०१४ में एक छोटी दुकान से हुई। आज हम महाराष्ट्र भर में ५०+ स्टोर्स और ऑनलाइन प्लेटफॉर्म के माध्यम से ग्राहकों को सेवा दे रहे हैं।',
+                storyPara2: 'हमारा उद्देश्य सिर्फ व्यवसाय नहीं बल्कि ग्राहकों को सर्वोत्तम गुणवत्ता वाले उत्पाद किफायती कीमतों पर उपलब्ध कराना है। हमने हमेशा ग्राहकों के विश्वास और संतुष्टि को प्राथमिकता दी है।',
+                storyPara3: 'आज Kmart सिर्फ एक स्टोर नहीं बल्कि एक ब्रांड है जो गुणवत्ता, विश्वसनीयता और उत्तम सेवा के लिए जाना जाता है।',
+                missionTitle: '🚀 हमारा मिशन (Mission)',
+                missionDesc: 'ग्राहकों को सर्वोत्तम गुणवत्ता वाले उत्पाद सबसे प्रतिस्पर्धी कीमतों पर उपलब्ध कराना और खरीदारी का आनंददायक अनुभव प्रदान करना।',
+                visionTitle: '👁️ हमारा विजन (Vision)',
+                visionDesc: 'महाराष्ट्र के हर घर तक पहुंचना और सबसे विश्वसनीय ऑनलाइन मार्ट के रूप में पहचाना जाना।',
+                valuesTitle: 'हमारे मूल्य (Our Values)',
+                value1Title: 'ग्राहक प्रथम',
+                value1Desc: 'ग्राहकों की संतुष्टि हमारी सर्वोच्च प्राथमिकता है।',
+                value2Title: 'गुणवत्ता',
+                value2Desc: 'हर उत्पाद की गुणवत्ता जांचने के बाद ही बिक्री।',
+                value3Title: 'विश्वसनीयता',
+                value3Desc: 'ग्राहकों का विश्वास ही हमारी सबसे बड़ी पूंजी है।',
+                value4Title: 'नवीनता',
+                value4Desc: 'हमेशा नई तकनीक और सेवाएं लाने का प्रयास।',
+                teamTitle: 'हमारी टीम (Our Team)',
+                team1Name: 'राजेश पाटील',
+                team1Role: 'संस्थापक और सीईओ',
+                team2Name: 'प्रियांका देशमुख',
+                team2Role: 'ऑपरेशन्स हेड',
+                team3Name: 'सचिन जोशी',
+                team3Role: 'मार्केटिंग हेड',
+                team4Name: 'स्नेहा कुलकर्णी',
+                team4Role: 'ग्राहक सेवा प्रमुख',
+                stat1: '५०+',
+                stat1Label: 'स्टोर्स',
+                stat2: '१०K+',
+                stat2Label: 'उत्पाद',
+                stat3: '१L+',
+                stat3Label: 'खुश ग्राहक',
+                stat4: '१०',
+                stat4Label: 'वर्षों का अनुभव',
+                footerAboutTitle: 'Kmart के बारे में',
+                footerAboutLink: 'हमारे बारे में',
+                footerCareerLink: 'करियर',
+                footerBlogLink: 'ब्लॉग',
+                footerHelpTitle: 'मदद और समर्थन',
+                footerOrderStatus: 'ऑर्डर स्थिति',
+                footerReturnPolicy: 'वापसी नीति',
+                footerContactTitle: 'हमसे संपर्क करें',
+                footerCopyright: '© २०२४ Kmart. सर्वाधिकार सुरक्षित.'
+            },
+            en: { // English
+                logo: '🛒 Kmart',
+                tagline: 'Your Local Market',
+                searchPlaceholder: 'Search products...',
+                searchBtn: '🔍 Search',
+                profile: '👤 My Profile',
+                cart: '🛒 Cart (0)',
+                navHome: 'Home',
+                navNew: 'New Products',
+                navBest: 'Best Sellers',
+                navOffers: 'Offers',
+                navContact: 'Contact Us',
+                navAbout: 'About Us',
+                aboutHeroTitle: 'About Us',
+                aboutHeroDesc: 'Kmart - Your trusted shopping partner. Serving customers for 10 years.',
+                storyTitle: 'Our Story',
+                storyPara1: 'Kmart started in 2014 from a small shop. Today we serve customers through 50+ stores across Maharashtra and online platform.',
+                storyPara2: 'Our goal is not just business but to provide customers with best quality products at affordable prices. We have always prioritized customer trust and satisfaction.',
+                storyPara3: 'Today Kmart is not just a store but a brand known for quality, reliability and excellent service.',
+                missionTitle: '🚀 Our Mission',
+                missionDesc: 'To provide customers with best quality products at most competitive prices and provide a enjoyable shopping experience.',
+                visionTitle: '👁️ Our Vision',
+                visionDesc: 'To reach every home in Maharashtra and be recognized as the most trusted online mart.',
+                valuesTitle: 'Our Values',
+                value1Title: 'Customer First',
+                value1Desc: 'Customer satisfaction is our top priority.',
+                value2Title: 'Quality',
+                value2Desc: 'Selling only after checking quality of each product.',
+                value3Title: 'Trust',
+                value3Desc: 'Customer trust is our biggest asset.',
+                value4Title: 'Innovation',
+                value4Desc: 'Always trying to bring new technology and services.',
+                teamTitle: 'Our Team',
+                team1Name: 'Rajesh Patil',
+                team1Role: 'Founder & CEO',
+                team2Name: 'Priyanka Deshmukh',
+                team2Role: 'Operations Head',
+                team3Name: 'Sachin Joshi',
+                team3Role: 'Marketing Head',
+                team4Name: 'Sneha Kulkarni',
+                team4Role: 'Customer Service Head',
+                stat1: '50+',
+                stat1Label: 'Stores',
+                stat2: '10K+',
+                stat2Label: 'Products',
+                stat3: '1L+',
+                stat3Label: 'Happy Customers',
+                stat4: '10',
+                stat4Label: 'Years Experience',
+                footerAboutTitle: 'About Kmart',
+                footerAboutLink: 'About Us',
+                footerCareerLink: 'Careers',
+                footerBlogLink: 'Blog',
+                footerHelpTitle: 'Help & Support',
+                footerOrderStatus: 'Order Status',
+                footerReturnPolicy: 'Return Policy',
+                footerContactTitle: 'Contact Us',
+                footerCopyright: '© 2024 Kmart. All rights reserved.'
+            }
+        };
+
+        // Function to switch language
+        function switchLanguage(lang) {
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            // Save language preference
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Load saved language on page load
+        window.onload = function() {
+            const savedLang = localStorage.getItem('preferred-language') || 'mr';
+            
+            // Set active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent.includes('मराठी') && savedLang === 'mr') btn.classList.add('active');
+                if(btn.textContent.includes('हिन्दी') && savedLang === 'hi') btn.classList.add('active');
+                if(btn.textContent.includes('English') && savedLang === 'en') btn.classList.add('active');
+            });
+
+            // Update content
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[savedLang][key]) {
+                    element.textContent = translations[savedLang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[savedLang][key]) {
+                    element.placeholder = translations[savedLang][key];
+                }
+            });
+        };
+    </script>
+</body>
+</html>

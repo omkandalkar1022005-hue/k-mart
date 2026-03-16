@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kmart - पुस्तके कलेक्शन</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Language Switcher Styles */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            flex: 0 1 400px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.5rem;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-cart {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-cart a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: rgb(244, 205, 205);
+            padding: 0.5rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-menu li a:hover {
+            color: #667eea;
+        }
+
+        body {
+            padding-top: 130px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Page Banner */
+        .books-banner {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 50%, #6b5bff 100%);
+            padding: 3rem 5%;
+            text-align: center;
+            color: rgb(29, 24, 24);
+            margin-bottom: 2rem;
+            animation: gradientBG 4s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .books-banner h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .books-banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Filters */
+        .filters {
+            padding: 1rem 5%;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: white;
+            margin: 0 5% 2rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: #f0f0f0;
+            color: #666;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Products Grid */
+        .books-products {
+            padding: 2rem 5%;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.2rem;
+        }
+
+        .product-category {
+            color: #667eea;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .product-rating {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-price del {
+            font-size: 0.9rem;
+            color: #999;
+            margin-left: 8px;
+            font-weight: normal;
+        }
+
+        /* Button Container */
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .add-to-cart {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
+            flex: 1;
+        }
+
+        .add-to-cart:hover {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Order Now Button */
+        .order-now {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
+            flex: 1;
+        }
+
+        .order-now:hover {
+            background: rgb(79, 197, 37);
+            color: #101010;
+            border: 2px solid #80f34f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(60, 220, 63, 0.4);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 3rem 0;
+        }
+
+        .page-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .page-btn:hover, .page-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 5% 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #555;
+        }/* Social Media & Floating Elements */
+.follow {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.follow h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.social a {
+    color: #667eea;
+    font-size: 32px;
+    transition: 0.3s;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.social a:hover {
+    color: #ff6b6b;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(255,107,107,0.3);
+}
+
+.social a i {
+    font-size: 32px;
+}
+
+.floating-call, .floating-map {
+    position: fixed;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 55px;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.floating-call {
+    bottom: 100px;
+    background: #28a745;
+}
+
+.floating-map {
+    bottom: 30px;
+    background: #dc3545;
+}
+
+.floating-call:hover, .floating-map:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* Font Awesome Icons - Add this in head section */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .books-banner h1 {
+                font-size: 2rem;
+            }
+        }
+        /* Cart Styles */
+.cart-count {
+    background: #ff6b6b;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    margin-left: 5px;
+}
+
+.cart-icon-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+    z-index: 2000;
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-panel.show {
+    right: 0;
+}
+
+.cart-header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-header h3 {
+    font-size: 1.3rem;
+}
+
+.cart-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.cart-close:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.cart-items-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.cart-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.cart-item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-details h4 {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.cart-item-price {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.cart-item-remove {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.cart-item-remove:hover {
+    background: #ff6b6b;
+    color: white;
+}
+
+.cart-total {
+    padding: 1.5rem;
+    border-top: 2px solid #eee;
+    background: white;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.total-row:last-of-type {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #667eea;
+    border-top: 1px dashed #ddd;
+    padding-top: 10px;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: 0.3s;
+}
+
+.checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.clear-cart-btn {
+    width: 100%;
+    padding: 1rem;
+    background: white;
+    color: #ff6b6b;
+    border: 2px solid #ff6b6b;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.clear-cart-btn:hover {
+    background: #ff6b6b;
+    color: white;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-cart-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-cart p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Cart Overlay */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1999;
+    display: none;
+}
+
+.cart-overlay.show {
+    display: block;
+}
+
+/* Cart Notification */
+.cart-notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    padding: 1rem;
+    z-index: 2500;
+    animation: slideInRight 0.5s ease;
+    max-width: 350px;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+}
+
+.notification-text {
+    color: #333;
+    font-size: 0.95rem;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+    </style>
+    <script>
+    // Cart functionality
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    function updateCartCount() {
+        const cartCount = document.querySelector('.cart-count');
+        if (cartCount) {
+            cartCount.textContent = cartItems.length;
+        }
+    }
+
+    function addToCart(product) {
+        cartItems.push(product);
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        updateCartCount();
+        showCartNotification(product.name);
+    }
+
+    function showCartNotification(productName) {
+        const notification = document.createElement('div');
+        notification.className = 'cart-notification';
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-icon">✅</span>
+                <span class="notification-text">${productName} कार्टमध्ये जोडले गेले!</span>
+            </div>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 500);
+        }, 3000);
+    }
+
+    function removeFromCart(index) {
+        cartItems.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        updateCartCount();
+        if (document.querySelector('.cart-items-container')) {
+            displayCartItems();
+        }
+    }
+
+    function clearCart() {
+        cartItems = [];
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        updateCartCount();
+        if (document.querySelector('.cart-items-container')) {
+            displayCartItems();
+        }
+    }
+
+    function displayCartItems() {
+        const cartContainer = document.querySelector('.cart-items-container');
+        if (!cartContainer) return;
+        
+        if (cartItems.length === 0) {
+            cartContainer.innerHTML = `
+                <div class="empty-cart">
+                    <span class="empty-cart-icon">📚</span>
+                    <p>तुमची कार्ट रिकामी आहे</p>
+                    <a href="books.html" class="shop-now-btn" style="padding: 0.8rem 1.5rem; font-size: 1rem;">पुस्तके खरेदी करा</a>
+                </div>
+            `;
+            return;
+        }
+
+        let total = 0;
+        let cartHTML = '<div class="cart-items-list">';
+        
+        cartItems.forEach((item, index) => {
+            total += parseInt(item.price);
+            cartHTML += `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p class="cart-item-price">₹${item.price}</p>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${index})">✕</button>
+                </div>
+            `;
+        });
+        
+        cartHTML += `
+            </div>
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>एकूण पुस्तके:</span>
+                    <span>${cartItems.length}</span>
+                </div>
+                <div class="total-row">
+                    <span>एकूण रक्कम:</span>
+                    <span>₹${total.toLocaleString()}</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">खरेदी पूर्ण करा</button>
+                <button class="clear-cart-btn" onclick="clearCart()">कार्ट रिकामी करा</button>
+            </div>
+        `;
+        
+        cartContainer.innerHTML = cartHTML;
+    }
+
+    function checkout() {
+        if (cartItems.length === 0) {
+            alert('तुमची कार्ट रिकामी आहे!');
+            return;
+        }
+        window.location.href = 'order.html?cart=' + encodeURIComponent(JSON.stringify(cartItems));
+    }
+
+    function toggleCart() {
+        const cartPanel = document.querySelector('.cart-panel');
+        const overlay = document.querySelector('.cart-overlay');
+        cartPanel.classList.toggle('show');
+        overlay.classList.toggle('show');
+        if (cartPanel.classList.contains('show')) {
+            displayCartItems();
+        }
+    }
+</script>
+</head>
+<body>
+    <!-- Header with Language Switcher -->
+    <header class="header">
+        <div class="top-header">
+            <div class="logo">
+                <h1 data-i18n="logo">🛒 Kmart</h1>
+                <p data-i18n="tagline">तुमचे स्थानिक बाजार</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" data-i18n-placeholder="searchPlaceholder">
+                <button data-i18n="searchBtn">🔍 शोधा</button>
+            </div>
+           <div class="user-cart">
+    <a href="#" data-i18n="profile">👤 माझे प्रोफाइल</a>
+    <div class="cart-icon-container" onclick="toggleCart()">
+        <a href="javascript:void(0)" data-i18n="cart">🛒 कार्ट <span class="cart-count">0</span></a>
+    </div>
+    <div class="language-switcher">
+        <button class="lang-btn active" onclick="switchLanguage('mr')">मराठी</button>
+        <button class="lang-btn" onclick="switchLanguage('hi')">हिन्दी</button>
+        <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+    </div>
+</div>
+<!-- Cart Panel -->
+<div class="cart-panel">
+    <div class="cart-header">
+        <h3>तुमची कार्ट 📚</h3>
+        <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items-container">
+        <!-- Cart items will be displayed here -->
+    </div>
+</div>
+<div class="cart-overlay" onclick="toggleCart()"></div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="index.html" data-i18n="navHome">मुखपृष्ठ</a></li>
+            <li><a href="newP.html" data-i18n="navNew">नवीन उत्पादने</a></li>
+            <li><a href="sel.html" data-i18n="navBest">सर्वोत्कृष्ट विक्रेते</a></li>
+            <li><a href="offers.html" data-i18n="navOffers">ऑफर्स</a></li>
+            <li><a href="topsel.html" data-i18n="navContact">संपर्क करा</a></li>
+            <li><a href="about.html" data-i18n="navAbout">आमच्याबद्दल</a></li>
+        </ul>
+    </nav>
+
+    <!-- Books Banner -->
+    <section class="books-banner">
+        <h1 data-i18n="booksTitle">📚 पुस्तके कलेक्शन 2024</h1>
+        <p data-i18n="booksDesc">शैक्षणिक, कादंबऱ्या, आत्मचरित्रे, बालसाहित्य आणि मासिके सर्वात कमी किमतीत</p>
+    </section>
+
+    <!-- Filters -->
+    <div class="filters">
+        <button class="filter-btn active" data-i18n="all">सर्व</button>
+        <button class="filter-btn" data-i18n="educational">शैक्षणिक</button>
+        <button class="filter-btn" data-i18n="novels">कादंबऱ्या</button>
+        <button class="filter-btn" data-i18n="biography">आत्मचरित्रे</button>
+        <button class="filter-btn" data-i18n="children">बालसाहित्य</button>
+        <button class="filter-btn" data-i18n="magazines">मासिके</button>
+        <button class="filter-btn" data-i18n="competitive">स्पर्धा परीक्षा</button>
+    </div>
+
+    <!-- Books Products -->
+    <section class="books-products">
+        <h2 style="text-align: center; font-size: 2rem; color: #333; margin-bottom: 2rem;" data-i18n="topBooks">✨ टॉप पुस्तके ✨</h2>
+        
+        <div class="products-grid">
+            <!-- Product 1 - Wings of Fire -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="bestseller">बेस्टसेलर</div>
+                <div class="product-image">
+                    <img src="wingsoffire.jpg" alt="Wings of Fire">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="biography">आत्मचरित्र</div>
+                    <h3 data-i18n="product1">विंग्स ऑफ फायर - एपीजे अब्दुल कलाम</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews1">(450)</span></div>
+                    <div class="product-price">₹299 <del>₹399</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'wingsoffire.jpg', name: 'विंग्स ऑफ फायर - एपीजे अब्दुल कलाम', price: '299'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('wingsoffire.jpg', 'विंग्स ऑफ फायर - एपीजे अब्दुल कलाम', '299', '399')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 - Rich Dad Poor Dad -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="hot">हॉट 🔥</div>
+                <div class="product-image">
+                    <img src="richdad.jpg" alt="Rich Dad Poor Dad">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="educational">शैक्षणिक</div>
+                    <h3 data-i18n="product2">रिच डॅड पुअर डॅड</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews2">(380)</span></div>
+                    <div class="product-price">₹249 <del>₹350</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'richdad.jpg', name: 'रिच डॅड पुअर डॅड', price: '249'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('richdad.jpg', 'रिच डॅड पुअर डॅड', '249', '350')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 - The Alchemist -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="bestseller">बेस्टसेलर</div>
+                <div class="product-image">
+                    <img src="alchemist.jpg" alt="The Alchemist">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="novels">कादंबरी</div>
+                    <h3 data-i18n="product3">द अल्केमिस्ट</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews3">(520)</span></div>
+                    <div class="product-price">₹199 <del>₹299</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'alchemist.jpg', name: 'द अल्केमिस्ट', price: '199'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('alchemist.jpg', 'द अल्केमिस्ट', '199', '299')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 - Chanakya Neeti -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="trending">ट्रेंडिंग</div>
+                <div class="product-image">
+                    <img src="chanakya.jpg" alt="Chanakya Neeti">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="educational">शैक्षणिक</div>
+                    <h3 data-i18n="product4">चाणक्य नीति</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews4">(210)</span></div>
+                    <div class="product-price">₹149 <del>₹199</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'chanakya.jpg', name: 'चाणक्य नीति', price: '149'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('chanakya.jpg', 'चाणक्य नीति', '149', '199')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 - Panipat -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="special">स्पेशल</div>
+                <div class="product-image">
+                    <img src="panipat.jpg" alt="Panipat">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="novels">कादंबरी</div>
+                    <h3 data-i18n="product5">पानीपत - विश्वास पाटील</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews5">(185)</span></div>
+                    <div class="product-price">₹299 <del>₹399</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'panipat.jpg', name: 'पानीपत - विश्वास पाटील', price: '299'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('panipat.jpg', 'पानीपत - विश्वास पाटील', '299', '399')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 - My Experiments with Truth -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="bestseller">बेस्टसेलर</div>
+                <div class="product-image">
+                    <img src="gandhi.jpg" alt="My Experiments with Truth">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="biography">आत्मचरित्र</div>
+                    <h3 data-i18n="product6">माय एक्सपेरिमेंट्स विथ ट्रुथ</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews6">(320)</span></div>
+                    <div class="product-price">₹199 <del>₹299</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'gandhi.jpg', name: 'माय एक्सपेरिमेंट्स विथ ट्रुथ', price: '199'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('gandhi.jpg', 'माय एक्सपेरिमेंट्स विथ ट्रुथ', '199', '299')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 - Panchtantra Stories -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="new">नवीन</div>
+                <div class="product-image">
+                    <img src="panchtantra.jpg" alt="Panchtantra Stories">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="children">बालसाहित्य</div>
+                    <h3 data-i18n="product7">पंचतंत्रच्या गोष्टी</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews7">(150)</span></div>
+                    <div class="product-price">₹99 <del>₹149</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'panchtantra.jpg', name: 'पंचतंत्रच्या गोष्टी', price: '99'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('panchtantra.jpg', 'पंचतंत्रच्या गोष्टी', '99', '149')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 - Akbar Birbal -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="special">स्पेशल</div>
+                <div class="product-image">
+                    <img src="akbarbirbal.jpg" alt="Akbar Birbal">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="children">बालसाहित्य</div>
+                    <h3 data-i18n="product8">अकबर बिरबल कथा</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews8">(280)</span></div>
+                    <div class="product-price">₹129 <del>₹179</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'akbarbirbal.jpg', name: 'अकबर बिरबल कथा', price: '129'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('akbarbirbal.jpg', 'अकबर बिरबल कथा', '129', '179')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 - India Today Magazine -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="trending">ट्रेंडिंग</div>
+                <div class="product-image">
+                    <img src="indiatoday.jpg" alt="India Today Magazine">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="magazines">मासिक</div>
+                    <h3 data-i18n="product9">इंडिया टुडे (मासिक)</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews9">(95)</span></div>
+                    <div class="product-price">₹50 <del>₹75</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'indiatoday.jpg', name: 'इंडिया टुडे मासिक', price: '50'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('indiatoday.jpg', 'इंडिया टुडे मासिक', '50', '75')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 - Grihashobhika -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="new">नवीन</div>
+                <div class="product-image">
+                    <img src="grihashobhika.jpg" alt="Grihashobhika">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="magazines">मासिक</div>
+                    <h3 data-i18n="product10">गृहशोभिका (मासिक)</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews10">(120)</span></div>
+                    <div class="product-price">₹40 <del>₹60</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'grihashobhika.jpg', name: 'गृहशोभिका मासिक', price: '40'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('grihashobhika.jpg', 'गृहशोभिका मासिक', '40', '60')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 - MPSC Complete Guide -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="bestseller">बेस्टसेलर</div>
+                <div class="product-image">
+                    <img src="mpsc.jpg" alt="MPSC Complete Guide">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="competitive">स्पर्धा परीक्षा</div>
+                    <h3 data-i18n="product11">MPSC संपूर्ण मार्गदर्शिका</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews11">(310)</span></div>
+                    <div class="product-price">₹599 <del>₹799</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'mpsc.jpg', name: 'MPSC संपूर्ण मार्गदर्शिका', price: '599'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('mpsc.jpg', 'MPSC संपूर्ण मार्गदर्शिका', '599', '799')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 - UPSC Guide -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="hot">हॉट 🔥</div>
+                <div class="product-image">
+                    <img src="upsc.jpg" alt="UPSC Guide">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="competitive">स्पर्धा परीक्षा</div>
+                    <h3 data-i18n="product12">UPSC IAS पूर्वतयारी</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews12">(245)</span></div>
+                    <div class="product-price">₹699 <del>₹899</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'upsc.jpg', name: 'UPSC IAS पूर्वतयारी', price: '699'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('upsc.jpg', 'UPSC IAS पूर्वतयारी', '699', '899')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 13 - Sherlock Holmes -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="trending">ट्रेंडिंग</div>
+                <div class="product-image">
+                    <img src="sherlock.jpg" alt="Sherlock Holmes">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="novels">कादंबरी</div>
+                    <h3 data-i18n="product13">शेरलॉक होम्स - संपूर्ण संग्रह</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews13">(420)</span></div>
+                    <div class="product-price">₹349 <del>₹499</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'sherlock.jpg', name: 'शेरलॉक होम्स - संपूर्ण संग्रह', price: '349'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('sherlock.jpg', 'शेरलॉक होम्स - संपूर्ण संग्रह', '349', '499')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 14 - Harry Potter -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="bestseller">बेस्टसेलर</div>
+                <div class="product-image">
+                    <img src="harrypotter.jpg" alt="Harry Potter">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="novels">कादंबरी</div>
+                    <h3 data-i18n="product14">हॅरी पॉटर आणि पार्थिव</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews14">(680)</span></div>
+                    <div class="product-price">₹399 <del>₹549</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'harrypotter.jpg', name: 'हॅरी पॉटर आणि पार्थिव', price: '399'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('harrypotter.jpg', 'हॅरी पॉटर आणि पार्थिव', '399', '549')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 15 - Science NCERT -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="new">नवीन</div>
+                <div class="product-image">
+                    <img src="science.jpg" alt="Science NCERT">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="educational">शैक्षणिक</div>
+                    <h3 data-i18n="product15">विज्ञान NCERT (इयत्ता 10)</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews15">(175)</span></div>
+                    <div class="product-price">₹149 <del>₹199</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'science.jpg', name: 'विज्ञान NCERT इयत्ता 10', price: '149'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('science.jpg', 'विज्ञान NCERT इयत्ता 10', '149', '199')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 16 - Maths NCERT -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="special">स्पेशल</div>
+                <div class="product-image">
+                    <img src="maths.jpg" alt="Maths NCERT">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="educational">शैक्षणिक</div>
+                    <h3 data-i18n="product16">गणित NCERT (इयत्ता 10)</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews16">(160)</span></div>
+                    <div class="product-price">₹149 <del>₹199</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'maths.jpg', name: 'गणित NCERT इयत्ता 10', price: '149'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('maths.jpg', 'गणित NCERT इयत्ता 10', '149', '199')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 17 - Chhava -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="trending">ट्रेंडिंग</div>
+                <div class="product-image">
+                    <img src="chhava.jpg" alt="Chhava">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="novels">कादंबरी</div>
+                    <h3 data-i18n="product17">छावा - शिवाजी सावंत</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews17">(290)</span></div>
+                    <div class="product-price">₹249 <del>₹349</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'chhava.jpg', name: 'छावा - शिवाजी सावंत', price: '249'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('chhava.jpg', 'छावा - शिवाजी सावंत', '249', '349')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 18 - Mrutyunjay -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="bestseller">बेस्टसेलर</div>
+                <div class="product-image">
+                    <img src="mrutyunjay.jpg" alt="Mrutyunjay">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="novels">कादंबरी</div>
+                    <h3 data-i18n="product18">मृत्युंजय - शिवाजी सावंत</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews18">(340)</span></div>
+                    <div class="product-price">₹279 <del>₹379</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'mrutyunjay.jpg', name: 'मृत्युंजय - शिवाजी सावंत', price: '279'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('mrutyunjay.jpg', 'मृत्युंजय - शिवाजी सावंत', '279', '379')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 19 - Yayati -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="special">स्पेशल</div>
+                <div class="product-image">
+                    <img src="yayati.jpg" alt="Yayati">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="novels">कादंबरी</div>
+                    <h3 data-i18n="product19">ययाती - वि.स. खांडेकर</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews19">(230)</span></div>
+                    <div class="product-price">₹199 <del>₹279</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'yayati.jpg', name: 'ययाती - वि.स. खांडेकर', price: '199'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('yayati.jpg', 'ययाती - वि.स. खांडेकर', '199', '279')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 20 - Batatyachi Chal -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="new">नवीन</div>
+                <div class="product-image">
+                    <img src="batatyachi.jpg" alt="Batatyachi Chal">
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="novels">कादंबरी</div>
+                    <h3 data-i18n="product20">बटाट्याची चाळ - पु.ल. देशपांडे</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews20">(315)</span></div>
+                    <div class="product-price">₹149 <del>₹199</del></div>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart({image: 'batatyachi.jpg', name: 'बटाट्याची चाळ - पु.ल. देशपांडे', price: '149'})" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                        <button class="order-now" onclick="goToOrder('batatyachi.jpg', 'बटाट्याची चाळ - पु.ल. देशपांडे', '149', '199')" data-i18n="orderNow">ऑर्डर करा</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+            <button class="page-btn">5</button>
+        </div>
+    </section>
+<!-- Social Media Follow Section -->
+<div class="follow">
+    <h2 data-i18n="followUs">Follow Us</h2>
+    <div class="social">
+        <a href="https://www.instagram.com/om____1199?igsh=ZXNtZm15aGNxZ3Rp" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com/@omkandalkar326?si=peEW-RMoxGJrXM2g" target="_blank">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://wa.me/8275761213" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Floating Buttons -->
+<a href="tel:+918275761213" class="floating-call" target="_self">
+    <i class="fas fa-phone"></i>
+</a>
+<a href="https://www.google.com/maps/place/Kolhapur+Maharashtra" class="floating-map" target="_blank">
+    <i class="fas fa-map-marker-alt"></i>
+</a>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-i18n="aboutTitle">Kmart बद्दल</h3>
+                <ul>
+                    <li><a href="about.html" data-i18n="aboutLink">आमच्याबद्दल</a></li>
+                    <li><a href="#" data-i18n="careerLink">करिअर</a></li>
+                    <li><a href="#" data-i18n="blogLink">ब्लॉग</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="helpTitle">मदत आणि समर्थन</h3>
+                <ul>
+                    <li><a href="#" data-i18n="orderStatus">ऑर्डर स्थिती</a></li>
+                    <li><a href="#" data-i18n="returnPolicy">रिटर्न पॉलिसी</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="copyright">© २०२४ Kmart. सर्व हक्क राखीव.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language translations
+        const translations = {
+            mr: { // Marathi
+                logo: '🛒 Kmart',
+                tagline: 'तुमचे स्थानिक बाजार',
+                searchPlaceholder: 'उत्पादने शोधा...',
+                searchBtn: '🔍 शोधा',
+                profile: '👤 माझे प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नवीन उत्पादने',
+                navBest: 'सर्वोत्कृष्ट विक्रेते',
+                navOffers: 'ऑफर्स',
+                navContact: 'संपर्क करा',
+                navAbout: 'आमच्याबद्दल',
+                booksTitle: '📚 पुस्तके कलेक्शन २०२४',
+                booksDesc: 'शैक्षणिक, कादंबऱ्या, आत्मचरित्रे, बालसाहित्य आणि मासिके सर्वात कमी किमतीत',
+                all: 'सर्व',
+                educational: 'शैक्षणिक',
+                novels: 'कादंबऱ्या',
+                biography: 'आत्मचरित्रे',
+                children: 'बालसाहित्य',
+                magazines: 'मासिके',
+                competitive: 'स्पर्धा परीक्षा',
+                topBooks: '✨ टॉप पुस्तके ✨',
+                hot: 'हॉट 🔥',
+                new: 'नवीन',
+                bestseller: 'बेस्टसेलर',
+                trending: 'ट्रेंडिंग',
+                special: 'स्पेशल',
+                orderNow: 'ऑर्डर करा',
+                addToCart: 'कार्टमध्ये घाला',
+                product1: 'विंग्स ऑफ फायर - एपीजे अब्दुल कलाम',
+                product2: 'रिच डॅड पुअर डॅड',
+                product3: 'द अल्केमिस्ट',
+                product4: 'चाणक्य नीति',
+                product5: 'पानीपत - विश्वास पाटील',
+                product6: 'माय एक्सपेरिमेंट्स विथ ट्रुथ',
+                product7: 'पंचतंत्रच्या गोष्टी',
+                product8: 'अकबर बिरबल कथा',
+                product9: 'इंडिया टुडे (मासिक)',
+                product10: 'गृहशोभिका (मासिक)',
+                product11: 'MPSC संपूर्ण मार्गदर्शिका',
+                product12: 'UPSC IAS पूर्वतयारी',
+                product13: 'शेरलॉक होम्स - संपूर्ण संग्रह',
+                product14: 'हॅरी पॉटर आणि पार्थिव',
+                product15: 'विज्ञान NCERT (इयत्ता 10)',
+                product16: 'गणित NCERT (इयत्ता 10)',
+                product17: 'छावा - शिवाजी सावंत',
+                product18: 'मृत्युंजय - शिवाजी सावंत',
+                product19: 'ययाती - वि.स. खांडेकर',
+                product20: 'बटाट्याची चाळ - पु.ल. देशपांडे',
+                reviews1: '(४५०)', reviews2: '(३८०)', reviews3: '(५२०)', reviews4: '(२१०)',
+                reviews5: '(१८५)', reviews6: '(३२०)', reviews7: '(१५०)', reviews8: '(२८०)',
+                reviews9: '(९५)', reviews10: '(१२०)', reviews11: '(३१०)', reviews12: '(२४५)',
+                reviews13: '(४२०)', reviews14: '(६८०)', reviews15: '(१७५)', reviews16: '(१६०)',
+                reviews17: '(२९०)', reviews18: '(३४०)', reviews19: '(२३०)', reviews20: '(३१५)',
+                aboutTitle: 'Kmart बद्दल',
+                aboutLink: 'आमच्याबद्दल',
+                careerLink: 'करिअर',
+                blogLink: 'ब्लॉग',
+                helpTitle: 'मदत आणि समर्थन',
+                orderStatus: 'ऑर्डर स्थिती',
+                returnPolicy: 'रिटर्न पॉलिसी',
+                copyright: '© २०२४ Kmart. सर्व हक्क राखीव.'
+            },
+            hi: { // Hindi
+                logo: '🛒 Kmart',
+                tagline: 'आपका स्थानीय बाजार',
+                searchPlaceholder: 'उत्पाद खोजें...',
+                searchBtn: '🔍 खोजें',
+                profile: '👤 मेरी प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नए उत्पाद',
+                navBest: 'सर्वाधिक बिक्री',
+                navOffers: 'ऑफ़र्स',
+                navContact: 'संपर्क करें',
+                navAbout: 'हमारे बारे में',
+                booksTitle: '📚 पुस्तक संग्रह २०२४',
+                booksDesc: 'शैक्षणिक, उपन्यास, आत्मकथा, बाल साहित्य और पत्रिकाएं सबसे कम कीमतों पर',
+                all: 'सभी',
+                educational: 'शैक्षणिक',
+                novels: 'उपन्यास',
+                biography: 'आत्मकथा',
+                children: 'बाल साहित्य',
+                magazines: 'पत्रिकाएं',
+                competitive: 'प्रतियोगी परीक्षा',
+                topBooks: '✨ शीर्ष पुस्तकें ✨',
+                hot: 'हॉट 🔥',
+                new: 'नया',
+                bestseller: 'बेस्टसेलर',
+                trending: 'ट्रेंडिंग',
+                special: 'स्पेशल',
+                orderNow: 'ऑर्डर करें',
+                addToCart: 'कार्ट में डालें',
+                product1: 'विंग्स ऑफ फायर - एपीजे अब्दुल कलाम',
+                product2: 'रिच डैड पुअर डैड',
+                product3: 'द अल्केमिस्ट',
+                product4: 'चाणक्य नीति',
+                product5: 'पानीपत - विश्वास पाटील',
+                product6: 'माय एक्सपेरिमेंट्स विथ ट्रुथ',
+                product7: 'पंचतंत्र की कहानियाँ',
+                product8: 'अकबर बीरबल कहानियाँ',
+                product9: 'इंडिया टुडे (मासिक)',
+                product10: 'गृहशोभिका (मासिक)',
+                product11: 'MPSC संपूर्ण मार्गदर्शिका',
+                product12: 'UPSC IAS तैयारी',
+                product13: 'शेरलॉक होम्स - संपूर्ण संग्रह',
+                product14: 'हैरी पॉटर एंड द सॉर्सरर्स स्टोन',
+                product15: 'विज्ञान NCERT (कक्षा 10)',
+                product16: 'गणित NCERT (कक्षा 10)',
+                product17: 'छावा - शिवाजी सावंत',
+                product18: 'मृत्युंजय - शिवाजी सावंत',
+                product19: 'ययाती - वि.स. खांडेकर',
+                product20: 'बटाट्याची चाळ - पु.ल. देशपांडे',
+                reviews1: '(४५०)', reviews2: '(३८०)', reviews3: '(५२०)', reviews4: '(२१०)',
+                reviews5: '(१८५)', reviews6: '(३२०)', reviews7: '(१५०)', reviews8: '(२८०)',
+                reviews9: '(९५)', reviews10: '(१२०)', reviews11: '(३१०)', reviews12: '(२४५)',
+                reviews13: '(४२०)', reviews14: '(६८०)', reviews15: '(१७५)', reviews16: '(१६०)',
+                reviews17: '(२९०)', reviews18: '(३४०)', reviews19: '(२३०)', reviews20: '(३१५)',
+                aboutTitle: 'Kmart के बारे में',
+                aboutLink: 'हमारे बारे में',
+                careerLink: 'करियर',
+                blogLink: 'ब्लॉग',
+                helpTitle: 'मदद और समर्थन',
+                orderStatus: 'ऑर्डर स्थिति',
+                returnPolicy: 'वापसी नीति',
+                copyright: '© २०२४ Kmart. सर्वाधिकार सुरक्षित.'
+            },
+            en: { // English
+                logo: '🛒 Kmart',
+                tagline: 'Your Local Market',
+                searchPlaceholder: 'Search products...',
+                searchBtn: '🔍 Search',
+                profile: '👤 My Profile',
+                cart: '🛒 Cart (0)',
+                navHome: 'Home',
+                navNew: 'New Products',
+                navBest: 'Best Sellers',
+                navOffers: 'Offers',
+                navContact: 'Contact Us',
+                navAbout: 'About Us',
+                booksTitle: '📚 Books Collection 2024',
+                booksDesc: 'Educational, Novels, Biographies, Children Books and Magazines at lowest prices',
+                all: 'All',
+                educational: 'Educational',
+                novels: 'Novels',
+                biography: 'Biography',
+                children: 'Children Books',
+                magazines: 'Magazines',
+                competitive: 'Competitive Exams',
+                topBooks: '✨ TOP BOOKS ✨',
+                hot: 'HOT 🔥',
+                new: 'NEW',
+                bestseller: 'BESTSELLER',
+                trending: 'TRENDING',
+                special: 'SPECIAL',
+                orderNow: 'Order Now',
+                addToCart: 'Add to Cart',
+                product1: 'Wings of Fire - APJ Abdul Kalam',
+                product2: 'Rich Dad Poor Dad',
+                product3: 'The Alchemist',
+                product4: 'Chanakya Neeti',
+                product5: 'Panipat - Vishwas Patil',
+                product6: 'My Experiments with Truth',
+                product7: 'Panchtantra Stories',
+                product8: 'Akbar Birbal Stories',
+                product9: 'India Today (Monthly)',
+                product10: 'Grihashobhika (Monthly)',
+                product11: 'MPSC Complete Guide',
+                product12: 'UPSC IAS Preparation',
+                product13: 'Sherlock Holmes - Complete Collection',
+                product14: 'Harry Potter and the Sorcerers Stone',
+                product15: 'Science NCERT (Class 10)',
+                product16: 'Maths NCERT (Class 10)',
+                product17: 'Chhava - Shivaji Sawant',
+                product18: 'Mrutyunjay - Shivaji Sawant',
+                product19: 'Yayati - V.S. Khandekar',
+                product20: 'Batatyachi Chal - P.L. Deshpande',
+                reviews1: '(450)', reviews2: '(380)', reviews3: '(520)', reviews4: '(210)',
+                reviews5: '(185)', reviews6: '(320)', reviews7: '(150)', reviews8: '(280)',
+                reviews9: '(95)', reviews10: '(120)', reviews11: '(310)', reviews12: '(245)',
+                reviews13: '(420)', reviews14: '(680)', reviews15: '(175)', reviews16: '(160)',
+                reviews17: '(290)', reviews18: '(340)', reviews19: '(230)', reviews20: '(315)',
+                aboutTitle: 'About Kmart',
+                aboutLink: 'About Us',
+                careerLink: 'Careers',
+                blogLink: 'Blog',
+                helpTitle: 'Help & Support',
+                orderStatus: 'Order Status',
+                returnPolicy: 'Return Policy',
+                copyright: '© 2024 Kmart. All rights reserved.'
+            }
+        };
+
+        // Function to switch language
+        function switchLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'BUTTON') {
+                        if (element.classList.contains('add-to-cart') || element.classList.contains('order-now')) {
+                            element.textContent = translations[lang][key];
+                        } else {
+                            element.placeholder = translations[lang][key];
+                        }
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Function to go to order page
+        function goToOrder(image, name, price, originalPrice) {
+            const encodedName = encodeURIComponent(name);
+            const encodedImage = encodeURIComponent(image);
+            window.location.href = `order.html?img=${encodedImage}&name=${encodedName}&price=${price}&original=${originalPrice}`;
+        }
+
+        // Load saved language
+        window.onload = function() {
+            const savedLang = localStorage.getItem('preferred-language') || 'mr';
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent.includes('मराठी') && savedLang === 'mr') btn.classList.add('active');
+                if(btn.textContent.includes('हिन्दी') && savedLang === 'hi') btn.classList.add('active');
+                if(btn.textContent.includes('English') && savedLang === 'en') btn.classList.add('active');
+            });
+            
+            // Update cart count on page load
+            updateCartCount();
+        };
+    </script>
+</body>
+</html>

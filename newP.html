@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kmart - नवीन उत्पादने | New Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .logo p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .search-bar {
+            flex: 0 1 400px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.5rem;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-cart {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-cart a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: white;
+            padding: 0.5rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 100px;
+            width: 100%;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #667eea;
+        }
+
+        body {
+            padding-top: 130px;
+            margin: 0;
+            background: #f8f9fa;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient( #50f276 , #ab8ec8 );
+            color: rgb(21, 19, 19);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 2rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #667eea;
+            border-radius: 30px;
+            background: transparent;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .sort-select {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #667eea;
+            border-radius: 30px;
+            font-size: 1rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 4rem 5%;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            max-width: 80%;
+            max-height: 80%;
+            transition: 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(102, 126, 234, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .overlay-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            color: #667eea;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .overlay-btn:hover {
+            transform: scale(1.1);
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-rating {
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .old-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #764ba2;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 4rem;
+        }
+
+        .page-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .page-btn:hover, .page-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #ff5252;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }/* Social Media & Floating Elements */
+.follow {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.follow h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.social a {
+    color: #667eea;
+    font-size: 32px;
+    transition: 0.3s;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.social a:hover {
+    color: #ff6b6b;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(255,107,107,0.3);
+}
+
+.social a i {
+    font-size: 32px;
+}
+
+.floating-call, .floating-map {
+    position: fixed;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 55px;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.floating-call {
+    bottom: 100px;
+    background: #28a745;
+}
+
+.floating-map {
+    bottom: 30px;
+    background: #dc3545;
+}
+
+.floating-call:hover, .floating-map:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* Font Awesome Icons - Add this in head section */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="top-header">
+            <div class="logo">
+                <h1 data-i18n="logo">🛒 Kmart</h1>
+                <p data-i18n="tagline">तुमचे स्थानिक बाजार</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" data-i18n-placeholder="searchPlaceholder" placeholder="उत्पादने शोधा...">
+                <button data-i18n="searchBtn">🔍 शोधा</button>
+            </div>
+            <div class="user-cart">
+                <a href="#" data-i18n="profile">👤 माझे प्रोफाइल</a>
+                <a href="#" data-i18n="cart">🛒 कार्ट (0)</a>
+                <div class="language-switcher">
+                    <button class="lang-btn" onclick="switchLanguage('mr')">मराठी</button>
+                    <button class="lang-btn" onclick="switchLanguage('hi')">हिन्दी</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="index.html" data-i18n="navHome">मुखपृष्ठ</a></li>
+            <li><a href="newP.html" class="active" data-i18n="navNew">नवीन उत्पादने</a></li>
+            <li><a href="sel.html" data-i18n="navBest">सर्वोत्कृष्ट विक्रेते</a></li>
+            <li><a href="offers.html" data-i18n="navOffers">ऑफर्स</a></li>
+            <li><a href="contact.html" data-i18n="navContact">संपर्क करा</a></li>
+            <li><a href="about.html" data-i18n="navAbout">आमच्याबद्दल</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <h1 data-i18n="productsHeroTitle">✨ नवीन उत्पादने</h1>
+        <p data-i18n="productsHeroDesc">बाजारात नवीन आलेली सर्वोत्तम उत्पादने पहा. प्रत्येक आठवड्याला नवीन आयटम.</p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-i18n="filterAll">सर्व</button>
+                <button class="filter-tab" data-i18n="filterElectronics">इलेक्ट्रॉनिक्स</button>
+                <button class="filter-tab" data-i18n="filterFashion">फॅशन</button>
+                <button class="filter-tab" data-i18n="filterHome">घर सजावट</button>
+                <button class="filter-tab" data-i18n="filterBooks">पुस्तके</button>
+            </div>
+            <select class="sort-select">
+                <option data-i18n="sortNewest">नवीनतम</option>
+                <option data-i18n="sortPopular">लोकप्रिय</option>
+                <option data-i18n="sortPriceLow">किंमत: कमी ते जास्त</option>
+                <option data-i18n="sortPriceHigh">किंमत: जास्त ते कमी</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="badgeNew">नवीन</div>
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23667eea'%3E📱%3C/text%3E%3C/svg%3E" alt="Product">
+                    <div class="product-overlay">
+                        <button class="overlay-btn">👁️</button>
+                        <button class="overlay-btn">❤️</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="catElectronics">इलेक्ट्रॉनिक्स</div>
+                    <h3 class="product-title" data-i18n="product1Name">सॅमसंग गॅलेक्सी S23</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ (५० रिव्ह्यू)</div>
+                    <div class="product-price">
+                        <span class="current-price">₹७४,९९९</span>
+                        <span class="old-price">₹८९,९९९</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="badgeNew">नवीन</div>
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23667eea'%3E👕%3C/text%3E%3C/svg%3E" alt="Product">
+                    <div class="product-overlay">
+                        <button class="overlay-btn">👁️</button>
+                        <button class="overlay-btn">❤️</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="catFashion">फॅशन</div>
+                    <h3 class="product-title" data-i18n="product2Name">लुई फिलिप शर्ट</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ (३२ रिव्ह्यू)</div>
+                    <div class="product-price">
+                        <span class="current-price">₹२,४९९</span>
+                        <span class="old-price">₹३,९९९</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="badgeNew">नवीन</div>
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23667eea'%3E🏠%3C/text%3E%3C/svg%3E" alt="Product">
+                    <div class="product-overlay">
+                        <button class="overlay-btn">👁️</button>
+                        <button class="overlay-btn">❤️</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="catHome">घर सजावट</div>
+                    <h3 class="product-title" data-i18n="product3Name">मिनिमलिस्ट लॅम्प</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ (१८ रिव्ह्यू)</div>
+                    <div class="product-price">
+                        <span class="current-price">₹१,२९९</span>
+                        <span class="old-price">₹१,९९९</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="badgeNew">नवीन</div>
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23667eea'%3E📚%3C/text%3E%3C/svg%3E" alt="Product">
+                    <div class="product-overlay">
+                        <button class="overlay-btn">👁️</button>
+                        <button class="overlay-btn">❤️</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="catBooks">पुस्तके</div>
+                    <h3 class="product-title" data-i18n="product4Name">द अल्केमिस्ट</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ (१००+ रिव्ह्यू)</div>
+                    <div class="product-price">
+                        <span class="current-price">₹३९९</span>
+                        <span class="old-price">₹५९९</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="badgeNew">नवीन</div>
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23667eea'%3E⌚%3C/text%3E%3C/svg%3E" alt="Product">
+                    <div class="product-overlay">
+                        <button class="overlay-btn">👁️</button>
+                        <button class="overlay-btn">❤️</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="catElectronics">इलेक्ट्रॉनिक्स</div>
+                    <h3 class="product-title" data-i18n="product5Name">अॅपल वॉच सीरीज ८</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ (२५ रिव्ह्यू)</div>
+                    <div class="product-price">
+                        <span class="current-price">₹४५,९९९</span>
+                        <span class="old-price">₹४९,९९९</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="badgeNew">नवीन</div>
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23667eea'%3E👟%3C/text%3E%3C/svg%3E" alt="Product">
+                    <div class="product-overlay">
+                        <button class="overlay-btn">👁️</button>
+                        <button class="overlay-btn">❤️</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="catFashion">फॅशन</div>
+                    <h3 class="product-title" data-i18n="product6Name">नायके एअर मॅक्स</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ (७८ रिव्ह्यू)</div>
+                    <div class="product-price">
+                        <span class="current-price">₹७,९९९</span>
+                        <span class="old-price">₹९,९९९</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="badgeNew">नवीन</div>
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23667eea'%3E🍳%3C/text%3E%3C/svg%3E" alt="Product">
+                    <div class="product-overlay">
+                        <button class="overlay-btn">👁️</button>
+                        <button class="overlay-btn">❤️</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="catHome">घर सजावट</div>
+                    <h3 class="product-title" data-i18n="product7Name">प्रीमियम कुकवेअर सेट</h3>
+                    <div class="product-rating">⭐⭐⭐⭐ (१२ रिव्ह्यू)</div>
+                    <div class="product-price">
+                        <span class="current-price">₹३,४९९</span>
+                        <span class="old-price">₹४,९९९</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-badge" data-i18n="badgeNew">नवीन</div>
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23667eea' opacity='0.2'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='16' fill='%23667eea'%3E🎧%3C/text%3E%3C/svg%3E" alt="Product">
+                    <div class="product-overlay">
+                        <button class="overlay-btn">👁️</button>
+                        <button class="overlay-btn">❤️</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category" data-i18n="catElectronics">इलेक्ट्रॉनिक्स</div>
+                    <h3 class="product-title" data-i18n="product8Name">सोनी वायरलेस हेडफोन</h3>
+                    <div class="product-rating">⭐⭐⭐⭐⭐ (४५ रिव्ह्यू)</div>
+                    <div class="product-price">
+                        <span class="current-price">₹१४,९९९</span>
+                        <span class="old-price">₹१८,९९९</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-i18n="addToCart">कार्टमध्ये घाला</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="page-btn active">१</button>
+            <button class="page-btn">२</button>
+            <button class="page-btn">३</button>
+            <button class="page-btn">४</button>
+            <button class="page-btn">५</button>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2 data-i18n="newsletterTitle">नवीन अपडेट्ससाठी सबस्क्राईब करा</h2>
+        <p data-i18n="newsletterDesc">नवीन उत्पादने आणि खास ऑफर्सची माहिती मिळवा</p>
+        <div class="newsletter-form">
+            <input type="email" data-i18n-placeholder="newsletterPlaceholder" placeholder="तुमचा ईमेल">
+            <button data-i18n="newsletterBtn">सबस्क्राईब</button>
+        </div>
+    </section>
+<!-- Social Media Follow Section -->
+<div class="follow">
+    <h2 data-i18n="followUs">Follow Us</h2>
+    <div class="social">
+        <a href="https://www.instagram.com/om____1199?igsh=ZXNtZm15aGNxZ3Rp" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com/@omkandalkar326?si=peEW-RMoxGJrXM2g" target="_blank">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://wa.me/8275761213" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Floating Buttons -->
+<a href="tel:+918275761213" class="floating-call" target="_self">
+    <i class="fas fa-phone"></i>
+</a>
+<a href="https://www.google.com/maps/place/Kolhapur+Maharashtra" class="floating-map" target="_blank">
+    <i class="fas fa-map-marker-alt"></i>
+</a>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-i18n="footerAboutTitle">Kmart बद्दल</h3>
+                <ul>
+                    <li><a href="#" data-i18n="footerAboutLink">आमच्याबद्दल</a></li>
+                    <li><a href="#" data-i18n="footerCareerLink">करिअर</a></li>
+                    <li><a href="#" data-i18n="footerBlogLink">ब्लॉग</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footerHelpTitle">मदत आणि समर्थन</h3>
+                <ul>
+                    <li><a href="#" data-i18n="footerOrderStatus">ऑर्डर स्थिती</a></li>
+                    <li><a href="#" data-i18n="footerReturnPolicy">रिटर्न पॉलिसी</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footerContactTitle">आमच्याशी संपर्क करा</h3>
+                <ul>
+                    <li>📞 +91 98765 43210</li>
+                    <li>📧 support@kmart.in</li>
+                    <li>📍 पुणे, महाराष्ट्र</li>
+                </ul>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📷</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; २०२४ Kmart. सर्व हक्क राखीव.</p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            mr: {
+                logo: '🛒 Kmart',
+                tagline: 'तुमचे स्थानिक बाजार',
+                searchPlaceholder: 'उत्पादने शोधा...',
+                searchBtn: '🔍 शोधा',
+                profile: '👤 माझे प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नवीन उत्पादने',
+                navBest: 'सर्वोत्कृष्ट विक्रेते',
+                navOffers: 'ऑफर्स',
+                navContact: 'संपर्क करा',
+                navAbout: 'आमच्याबद्दल',
+                productsHeroTitle: '✨ नवीन उत्पादने',
+                productsHeroDesc: 'बाजारात नवीन आलेली सर्वोत्तम उत्पादने पहा. प्रत्येक आठवड्याला नवीन आयटम.',
+                filterAll: 'सर्व',
+                filterElectronics: 'इलेक्ट्रॉनिक्स',
+                filterFashion: 'फॅशन',
+                filterHome: 'घर सजावट',
+                filterBooks: 'पुस्तके',
+                sortNewest: 'नवीनतम',
+                sortPopular: 'लोकप्रिय',
+                sortPriceLow: 'किंमत: कमी ते जास्त',
+                sortPriceHigh: 'किंमत: जास्त ते कमी',
+                badgeNew: 'नवीन',
+                catElectronics: 'इलेक्ट्रॉनिक्स',
+                catFashion: 'फॅशन',
+                catHome: 'घर सजावट',
+                catBooks: 'पुस्तके',
+                product1Name: 'सॅमसंग गॅलेक्सी S23',
+                product2Name: 'लुई फिलिप शर्ट',
+                product3Name: 'मिनिमलिस्ट लॅम्प',
+                product4Name: 'द अल्केमिस्ट',
+                product5Name: 'अॅपल वॉच सीरीज ८',
+                product6Name: 'नायके एअर मॅक्स',
+                product7Name: 'प्रीमियम कुकवेअर सेट',
+                product8Name: 'सोनी वायरलेस हेडफोन',
+                addToCart: 'कार्टमध्ये घाला',
+                newsletterTitle: 'नवीन अपडेट्ससाठी सबस्क्राईब करा',
+                newsletterDesc: 'नवीन उत्पादने आणि खास ऑफर्सची माहिती मिळवा',
+                newsletterPlaceholder: 'तुमचा ईमेल',
+                newsletterBtn: 'सबस्क्राईब',
+                footerAboutTitle: 'Kmart बद्दल',
+                footerAboutLink: 'आमच्याबद्दल',
+                footerCareerLink: 'करिअर',
+                footerBlogLink: 'ब्लॉग',
+                footerHelpTitle: 'मदत आणि समर्थन',
+                footerOrderStatus: 'ऑर्डर स्थिती',
+                footerReturnPolicy: 'रिटर्न पॉलिसी',
+                footerContactTitle: 'आमच्याशी संपर्क करा',
+                footerCopyright: '© २०२४ Kmart. सर्व हक्क राखीव.'
+            },
+            hi: {
+                logo: '🛒 Kmart',
+                tagline: 'आपका स्थानीय बाजार',
+                searchPlaceholder: 'उत्पाद खोजें...',
+                searchBtn: '🔍 खोजें',
+                profile: '👤 मेरी प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नए उत्पाद',
+                navBest: 'सर्वाधिक बिक्री',
+                navOffers: 'ऑफ़र्स',
+                navContact: 'संपर्क करें',
+                navAbout: 'हमारे बारे में',
+                productsHeroTitle: '✨ नए उत्पाद',
+                productsHeroDesc: 'बाजार में नए आए बेहतरीन उत्पाद देखें। हर हफ्ते नए आइटम।',
+                filterAll: 'सभी',
+                filterElectronics: 'इलेक्ट्रॉनिक्स',
+                filterFashion: 'फैशन',
+                filterHome: 'गृह सजावट',
+                filterBooks: 'किताबें',
+                sortNewest: 'नवीनतम',
+                sortPopular: 'लोकप्रिय',
+                sortPriceLow: 'कीमत: कम से ज्यादा',
+                sortPriceHigh: 'कीमत: ज्यादा से कम',
+                badgeNew: 'नया',
+                catElectronics: 'इलेक्ट्रॉनिक्स',
+                catFashion: 'फैशन',
+                catHome: 'गृह सजावट',
+                catBooks: 'किताबें',
+                product1Name: 'सैमसंग गैलेक्सी S23',
+                product2Name: 'लुई फिलिप शर्ट',
+                product3Name: 'मिनिमलिस्ट लैंप',
+                product4Name: 'द अल्केमिस्ट',
+                product5Name: 'एप्पल वॉच सीरीज ८',
+                product6Name: 'नाइके एयर मैक्स',
+                product7Name: 'प्रीमियम कुकवेयर सेट',
+                product8Name: 'सोनी वायरलेस हेडफोन',
+                addToCart: 'कार्ट में डालें',
+                newsletterTitle: 'नए अपडेट के लिए सब्सक्राइब करें',
+                newsletterDesc: 'नए उत्पाद और खास ऑफर्स की जानकारी पाएं',
+                newsletterPlaceholder: 'आपका ईमेल',
+                newsletterBtn: 'सब्सक्राइब',
+                footerAboutTitle: 'Kmart के बारे में',
+                footerAboutLink: 'हमारे बारे में',
+                footerCareerLink: 'करियर',
+                footerBlogLink: 'ब्लॉग',
+                footerHelpTitle: 'मदद और समर्थन',
+                footerOrderStatus: 'ऑर्डर स्थिति',
+                footerReturnPolicy: 'वापसी नीति',
+                footerContactTitle: 'हमसे संपर्क करें',
+                footerCopyright: '© २०२४ Kmart. सर्वाधिकार सुरक्षित.'
+            },
+            en: {
+                logo: '🛒 Kmart',
+                tagline: 'Your Local Market',
+                searchPlaceholder: 'Search products...',
+                searchBtn: '🔍 Search',
+                profile: '👤 My Profile',
+                cart: '🛒 Cart (0)',
+                navHome: 'Home',
+                navNew: 'New Products',
+                navBest: 'Best Sellers',
+                navOffers: 'Offers',
+                navContact: 'Contact Us',
+                navAbout: 'About Us',
+                productsHeroTitle: '✨ New Products',
+                productsHeroDesc: 'Check out the latest products in the market. New items every week.',
+                filterAll: 'All',
+                filterElectronics: 'Electronics',
+                filterFashion: 'Fashion',
+                filterHome: 'Home Decor',
+                filterBooks: 'Books',
+                sortNewest: 'Newest',
+                sortPopular: 'Popular',
+                sortPriceLow: 'Price: Low to High',
+                sortPriceHigh: 'Price: High to Low',
+                badgeNew: 'New',
+                catElectronics: 'Electronics',
+                catFashion: 'Fashion',
+                catHome: 'Home Decor',
+                catBooks: 'Books',
+                product1Name: 'Samsung Galaxy S23',
+                product2Name: 'Louis Philippe Shirt',
+                product3Name: 'Minimalist Lamp',
+                product4Name: 'The Alchemist',
+                product5Name: 'Apple Watch Series 8',
+                product6Name: 'Nike Air Max',
+                product7Name: 'Premium Cookware Set',
+                product8Name: 'Sony Wireless Headphones',
+                addToCart: 'Add to Cart',
+                newsletterTitle: 'Subscribe for Updates',
+                newsletterDesc: 'Get updates on new products and special offers',
+                newsletterPlaceholder: 'Your Email',
+                newsletterBtn: 'Subscribe',
+                footerAboutTitle: 'About Kmart',
+                footerAboutLink: 'About Us',
+                footerCareerLink: 'Careers',
+                footerBlogLink: 'Blog',
+                footerHelpTitle: 'Help & Support',
+                footerOrderStatus: 'Order Status',
+                footerReturnPolicy: 'Return Policy',
+                footerContactTitle: 'Contact Us',
+                footerCopyright: '© 2024 Kmart. All rights reserved.'
+            }
+        };
+
+        function switchLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        window.onload = function() {
+            const savedLang = localStorage.getItem('preferred-language') || 'mr';
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent.includes('मराठी') && savedLang === 'mr') btn.classList.add('active');
+                if(btn.textContent.includes('हिन्दी') && savedLang === 'hi') btn.classList.add('active');
+                if(btn.textContent.includes('English') && savedLang === 'en') btn.classList.add('active');
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[savedLang][key]) {
+                    element.textContent = translations[savedLang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[savedLang][key]) {
+                    element.placeholder = translations[savedLang][key];
+                }
+            });
+        };
+    </script>
+</body>
+</html>

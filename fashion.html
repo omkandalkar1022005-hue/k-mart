@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kmart - फॅशन कलेक्शन</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Language Switcher Styles */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            flex: 0 1 400px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px 0 0 25px;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.5rem;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-cart {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-cart a {
+            color: white;
+            text-decoration: none;
+             /* Navigation */
+      .nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    color: #1af53e;
+    background-color: #e4cbcb;
+    position: fixed;
+    margin: 0;
+    padding: 1rem 5%;
+    top: 1000;
+    margin-top: 1000;
+    left: auto;
+    width: 100%;
+    right: auto;
+}
+body {
+    padding-top: 130px;     
+    margin: 0;
+}
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: rgb(244, 205, 205);
+            padding: 0.5rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-menu li a:hover {
+            color: #667eea;
+        }
+
+        body {
+            padding-top: 130px;
+        }
+
+        /* Page Banner */
+        .fashion-banner {
+            background: linear-gradient(135deg, #ff6b6b 20%, #ffd93d 50%, #6b5bff 100%);
+            padding: 3rem 5%;
+            text-align: center;
+            color: rgb(18, 17, 17);
+            margin-bottom: 2rem;
+            animation: gradientBG 10s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .fashion-banner h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .fashion-banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Filters */
+        .filters {
+            padding: 1rem 5%;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: white;
+            margin: 0 5% 2rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: #f0f0f0;
+            color: #666;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Products Grid */
+        .fashion-products {
+            padding: 2rem 5%;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.2rem;
+        }
+
+        .product-category {
+            color: #667eea;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .product-rating {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-price del {
+            font-size: 0.9rem;
+            color: #999;
+            margin-left: 8px;
+            font-weight: normal;
+        }
+
+        .add-to-cart {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+          /* Button Container */
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.add-to-cart {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+    flex: 1;
+}
+
+.add-to-cart:hover {
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Order Now Button */
+.order-now {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+    flex: 1;
+}
+
+.order-now:hover {
+    background: rgb(79, 197, 37);
+    color: #101010;
+    border: 2px solid #80f34f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(60, 220, 63, 0.4);
+}
+        .add-to-cart:hover {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 3rem 0;
+        }
+
+        .page-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .page-btn:hover, .page-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 5% 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #555;
+        }/* Social Media & Floating Elements */
+.follow {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.follow h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.social a {
+    color: #667eea;
+    font-size: 32px;
+    transition: 0.3s;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.social a:hover {
+    color: #ff6b6b;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(255,107,107,0.3);
+}
+
+.social a i {
+    font-size: 32px;
+}
+
+.floating-call, .floating-map {
+    position: fixed;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 55px;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.floating-call {
+    bottom: 100px;
+    background: #28a745;
+}
+
+.floating-map {
+    bottom: 30px;
+    background: #dc3545;
+}
+
+.floating-call:hover, .floating-map:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* Font Awesome Icons - Add this in head section */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .fashion-banner h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Language Switcher -->
+    <header class="header">
+        <div class="top-header">
+            <div class="logo">
+                <h1 data-i18n="logo">🛒 Kmart</h1>
+                <p data-i18n="tagline">तुमचे स्थानिक बाजार</p>
+            </div>
+            <div class="search-bar">
+                <input type="text" data-i18n-placeholder="searchPlaceholder">
+                <button data-i18n="searchBtn">🔍 शोधा</button>
+            </div>
+            <div class="user-cart">
+                <a href="#" data-i18n="profile">👤 माझे प्रोफाइल</a>
+                <a href="#" data-i18n="cart">🛒 कार्ट (0)</a>
+                <div class="language-switcher">
+                    <button class="lang-btn active" onclick="switchLanguage('mr')">मराठी</button>
+                    <button class="lang-btn" onclick="switchLanguage('hi')">हिन्दी</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="index.html" data-i18n="navHome">मुखपृष्ठ</a></li>
+            <li><a href="newP.html" data-i18n="navNew">नवीन उत्पादने</a></li>
+            <li><a href="sel.html" data-i18n="navBest">सर्वोत्कृष्ट विक्रेते</a></li>
+            <li><a href="offers.html" data-i18n="navOffers">ऑफर्स</a></li>
+            <li><a href="topsel.html" data-i18n="navContact">संपर्क करा</a></li>
+            <li><a href="about.html" data-i18n="navAbout">आमच्याबद्दल</a></li>
+        </ul>
+    </nav>
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="#" data-i18n="navHome">मुखपृष्ठ</a></li>
+            <li><a href="newP.html" data-i18n="navNew">नवीन उत्पादने</a></li>
+            <li><a href="sel.html" data-i18n="navBest">सर्वोत्कृष्ट विक्रेते</a></li>
+            <li><a href="offers.html" data-i18n="navOffers">ऑफर्स</a></li>
+            <li><a href="topsel.html" data-i18n="navContact">संपर्क करा</a></li>
+            <li><a href="about.html" data-i18n="navAbout">आमच्याबद्दल</a></li>
+        </ul>
+    </nav>
+
+    <!-- Fashion Banner -->
+    <section class="fashion-banner">
+        <h1 data-i18n="fashionTitle">👕 फॅशन कलेक्शन 2024</h1>
+        <p data-i18n="fashionDesc">स्टाइलिश आणि ट्रेंडी कपडे, शूज आणि अॅक्सेसरीज सर्वात कमी किमतीत</p>
+    </section>
+
+    <!-- Filters -->
+    <div class="filters">
+        <button class="filter-btn active" data-i18n="all">सर्व</button>
+        <button class="filter-btn" data-i18n="men">पुरुष</button>
+        <button class="filter-btn" data-i18n="women">महिला</button>
+        <button class="filter-btn" data-i18n="kids">मुले</button>
+        <button class="filter-btn" data-i18n="shoes">शूज</button>
+        <button class="filter-btn" data-i18n="accessories">अॅक्सेसरीज</button>
+        <button class="filter-btn" data-i18n="branded">ब्रँडेड</button>
+    </div>
+
+    <!-- Fashion Products -->
+    <section class="fashion-products">
+        <h2 style="text-align: center; font-size: 2rem; color: #333; margin-bottom: 2rem;" data-i18n="topFashion">✨ टॉप फॅशन प्रॉडक्ट्स ✨</h2>
+        
+        <div class="products-grid">
+           <!-- Product 1 - Shirt -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="hot">हॉट 🔥</div>
+    <div class="product-image">
+        <img src="shirt.jpg" alt="Men's Shirt">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="men">पुरुष</div>
+        <h3 data-i18n="product1">प्रीमियम कॉटन शर्ट</h3>
+        <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews1">(150)</span></div>
+        <div class="product-price">₹1,299 <del>₹2,499</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('shirt.jpg', 'प्रीमियम कॉटन शर्ट', '1299', '2499')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 2 - Dress -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="offer50">50% OFF</div>
+    <div class="product-image">
+        <img src="dress.jpg" alt="Women's Dress">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="women">महिला</div>
+        <h3 data-i18n="product2">फ्लोरल प्रिंट ड्रेस</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews2">(89)</span></div>
+        <div class="product-price">₹1,999 <del>₹3,999</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('dress.jpg', 'फ्लोरल प्रिंट ड्रेस', '1999', '3999')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 3 - Shoes -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="bestseller">बेस्टसेलर</div>
+    <div class="product-image">
+        <img src="shoes.webp" alt="Sports Shoes">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="shoes">शूज</div>
+        <h3 data-i18n="product3">रनिंग स्पोर्ट्स शूज</h3>
+        <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews3">(200)</span></div>
+        <div class="product-price">₹2,499 <del>₹4,999</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('shoes.webp', 'रनिंग स्पोर्ट्स शूज', '2499', '4999')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+           <!-- Product 4 - Watch -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="new">नवीन</div>
+    <div class="product-image">
+        <img src="watch.jpg" alt="Watch">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="accessories">अॅक्सेसरीज</div>
+        <h3 data-i18n="product4">लग्झरी फॅशन वॉच</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews4">(75)</span></div>
+        <div class="product-price">₹3,999 <del>₹7,999</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('watch.jpg', 'लग्झरी फॅशन वॉच', '3999', '7999')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 5 - Jeans -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="trending">ट्रेंडिंग</div>
+    <div class="product-image">
+        <img src="jeans.jpg" alt="Jeans">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="men">पुरुष</div>
+        <h3 data-i18n="product5">स्किनी फिट जीन्स</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews5">(120)</span></div>
+        <div class="product-price">₹1,599 <del>₹2,999</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('jeans.jpg', 'स्किनी फिट जीन्स', '1599', '2999')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 6 - Kurta -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="special">स्पेशल</div>
+    <div class="product-image">
+        <img src="kurta.jpg" alt="Kurta">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="women">महिला</div>
+        <h3 data-i18n="product6">डिझायनर कुर्ता सेट</h3>
+        <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews6">(95)</span></div>
+        <div class="product-price">₹2,299 <del>₹4,499</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('kurta.jpg', 'डिझायनर कुर्ता सेट', '2299', '4499')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 7 - Cap -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="hot">हॉट</div>
+    <div class="product-image">
+        <img src="cup.jpg" alt="Cap">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="accessories">अॅक्सेसरीज</div>
+        <h3 data-i18n="product7">ट्रेंडी बेसबॉल कॅप</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews7">(50)</span></div>
+        <div class="product-price">₹499 <del>₹999</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('cup.jpg', 'ट्रेंडी बेसबॉल कॅप', '499', '999')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 8 - Sunglasses -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="uv">यूवी प्रोटेक्शन</div>
+    <div class="product-image">
+        <img src="sun.jpg" alt="Sunglasses">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="accessories">अॅक्सेसरीज</div>
+        <h3 data-i18n="product8">एव्हीएटर सनग्लासेस</h3>
+        <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews8">(80)</span></div>
+        <div class="product-price">₹899 <del>₹1,799</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('sun.jpg', 'एव्हीएटर सनग्लासेस', '899', '1799')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 9 - Jacket -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="winter">विंटर स्पेशल</div>
+    <div class="product-image">
+        <img src="jacket.webp" alt="Jacket">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="men">पुरुष</div>
+        <h3 data-i18n="product9">डेनिम जॅकेट</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews9">(65)</span></div>
+        <div class="product-price">₹2,999 <del>₹5,999</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('jacket.webp', 'डेनिम जॅकेट', '2999', '5999')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 10 - Handbag -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="luxury">लग्झरी</div>
+    <div class="product-image">
+        <img src="bag.jpg" alt="Handbag">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="women">महिला</div>
+        <h3 data-i18n="product10">डिझायनर हँडबॅग</h3>
+        <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews10">(110)</span></div>
+        <div class="product-price">₹1,799 <del>₹3,599</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('bag.jpg', 'डिझायनर हँडबॅग', '1799', '3599')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 11 - T-Shirt -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="comfort">कम्फर्ट</div>
+    <div class="product-image">
+        <img src="cotton.jpg" alt="T-Shirt">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="men">पुरुष</div>
+        <h3 data-i18n="product11">कॉटन प्रिंटेड टी-शर्ट</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews11">(140)</span></div>
+        <div class="product-price">₹599 <del>₹1,199</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('cotton.jpg', 'कॉटन प्रिंटेड टी-शर्ट', '599', '1199')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 12 - Skirt -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="trendy">ट्रेंडी</div>
+    <div class="product-image">
+        <img src="skirt.jpg" alt="Skirt">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="women">महिला</div>
+        <h3 data-i18n="product12">प्लीटेड स्कर्ट</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews12">(55)</span></div>
+        <div class="product-price">₹899 <del>₹1,799</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('skirt.jpg', 'प्लीटेड स्कर्ट', '899', '1799')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 13 - Belt -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="stylish">स्टाइलिश</div>
+    <div class="product-image">
+        <img src="belt.jpg" alt="Belt">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="accessories">अॅक्सेसरीज</div>
+        <h3 data-i18n="product13">लेदर बेल्ट</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews13">(40)</span></div>
+        <div class="product-price">₹399 <del>₹799</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('belt.jpg', 'लेदर बेल्ट', '399', '799')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 14 - Wallet -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="bestseller">बेस्टसेलर</div>
+    <div class="product-image">
+        <img src="wallet.jpg" alt="Wallet">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="accessories">अॅक्सेसरीज</div>
+        <h3 data-i18n="product14">मल्टी-कार्ड वॉलेट</h3>
+        <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews14">(90)</span></div>
+        <div class="product-price">₹499 <del>₹999</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('wallet.jpg', 'मल्टी-कार्ड वॉलेट', '499', '999')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 15 - Saree -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="traditional">ट्रेडिशनल</div>
+    <div class="product-image">
+        <img src="saree.jpg" alt="Saree">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="women">महिला</div>
+        <h3 data-i18n="product15">सिल्क साड़ी</h3>
+        <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews15">(150)</span></div>
+        <div class="product-price">₹3,999 <del>₹7,999</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('saree.jpg', 'सिल्क साड़ी', '3999', '7999')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 16 - Hoodie -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="comfort">कम्फर्ट</div>
+    <div class="product-image">
+        <img src="hoody.webp" alt="Hoodie">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="men">पुरुष</div>
+        <h3 data-i18n="product16">कॉटन हुडी</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews16">(70)</span></div>
+        <div class="product-price">₹1,299 <del>₹2,599</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('hoody.webp', 'कॉटन हुडी', '1299', '2599')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 17 - Heels -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="party">पार्टी वियर</div>
+    <div class="product-image">
+        <img src="heel.jpg" alt="Heels">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="women">महिला</div>
+        <h3 data-i18n="product17">हाय हील सँडल</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews17">(60)</span></div>
+        <div class="product-price">₹1,599 <del>₹3,199</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('heel.jpg', 'हाय हील सँडल', '1599', '3199')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 18 - Tie -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="formal">फॉर्मल</div>
+    <div class="product-image">
+        <img src="tie.jpg" alt="Tie">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="accessories">अॅक्सेसरीज</div>
+        <h3 data-i18n="product18">सिल्क टाय</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews18">(35)</span></div>
+        <div class="product-price">₹299 <del>₹599</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('tie.jpg', 'सिल्क टाय', '299', '599')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 19 - Track Pant -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="sports">स्पोर्ट्स</div>
+    <div class="product-image">
+        <img src="pant.webp" alt="Track Pant">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="men">पुरुष</div>
+        <h3 data-i18n="product19">स्पोर्ट्स ट्रॅक पँट</h3>
+        <div class="product-rating">⭐⭐⭐⭐⭐ <span data-i18n="reviews19">(85)</span></div>
+        <div class="product-price">₹899 <del>₹1,799</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('pant.webp', 'स्पोर्ट्स ट्रॅक पँट', '899', '1799')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product 20 - Bracelet -->
+<div class="product-card">
+    <div class="product-badge" data-i18n="gift">गिफ्ट आयडिया</div>
+    <div class="product-image">
+        <img src="steel.jpg" alt="Bracelet">
+    </div>
+    <div class="product-info">
+        <div class="product-category" data-i18n="accessories">अॅक्सेसरीज</div>
+        <h3 data-i18n="product20">स्टेनलेस स्टील ब्रेसलेट</h3>
+        <div class="product-rating">⭐⭐⭐⭐ <span data-i18n="reviews20">(45)</span></div>
+        <div class="product-price">₹699 <del>₹1,399</del></div>
+        <div class="button-container">
+            <button class="add-to-cart" data-i18n="addToCart">कार्टमध्ये घाला</button>
+            <button class="order-now" onclick="goToOrder('steel.jpg', 'स्टेनलेस स्टील ब्रेसलेट', '699', '1399')" data-i18n="orderNow">ऑर्डर करा</button>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+            <button class="page-btn">5</button>
+        </div>
+    </section><!-- Social Media Follow Section -->
+<div class="follow">
+    <h2 data-i18n="followUs">Follow Us</h2>
+    <div class="social">
+        <a href="https://www.instagram.com/om____1199?igsh=ZXNtZm15aGNxZ3Rp" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com/@omkandalkar326?si=peEW-RMoxGJrXM2g" target="_blank">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://wa.me/8275761213" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Floating Buttons -->
+<a href="tel:+918275761213" class="floating-call" target="_self">
+    <i class="fas fa-phone"></i>
+</a>
+<a href="https://www.google.com/maps/place/Kolhapur+Maharashtra" class="floating-map" target="_blank">
+    <i class="fas fa-map-marker-alt"></i>
+</a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-i18n="aboutTitle">Kmart बद्दल</h3>
+                <ul>
+                    <li><a href="about.html" data-i18n="aboutLink">आमच्याबद्दल</a></li>
+                    <li><a href="#" data-i18n="careerLink">करिअर</a></li>
+                    <li><a href="#" data-i18n="blogLink">ब्लॉग</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="helpTitle">मदत आणि समर्थन</h3>
+                <ul>
+                    <li><a href="#" data-i18n="orderStatus">ऑर्डर स्थिती</a></li>
+                    <li><a href="#" data-i18n="returnPolicy">रिटर्न पॉलिसी</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="copyright">© २०२४ Kmart. सर्व हक्क राखीव.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language translations
+        const translations = {
+            mr: { // Marathi
+                logo: '🛒 Kmart',
+                tagline: 'तुमचे स्थानिक बाजार',
+                searchPlaceholder: 'उत्पादने शोधा...',
+                searchBtn: '🔍 शोधा',
+                profile: '👤 माझे प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                orderNow: 'ऑर्डर करा',
+                navNew: 'नवीन उत्पादने',
+                navBest: 'सर्वोत्कृष्ट विक्रेते',
+                navOffers: 'ऑफर्स',
+                navContact: 'संपर्क करा',
+                navAbout: 'आमच्याबद्दल',
+                fashionTitle: '👕 फॅशन कलेक्शन २०२४',
+                fashionDesc: 'स्टाइलिश आणि ट्रेंडी कपडे, शूज आणि अॅक्सेसरीज सर्वात कमी किमतीत',
+                all: 'सर्व',
+                men: 'पुरुष',
+                women: 'महिला',
+                kids: 'मुले',
+                shoes: 'शूज',
+                accessories: 'अॅक्सेसरीज',
+                branded: 'ब्रँडेड',
+                topFashion: '✨ टॉप फॅशन प्रॉडक्ट्स ✨',
+                hot: 'हॉट 🔥',
+                new: 'नवीन',
+                bestseller: 'बेस्टसेलर',
+                trending: 'ट्रेंडिंग',
+                special: 'स्पेशल',
+                winter: 'विंटर स्पेशल',
+                luxury: 'लग्झरी',
+                uv: 'यूवी प्रोटेक्शन',
+                offer50: '५०% सूट',
+                orderNow: 'ऑर्डर करा',
+                product1: 'प्रीमियम कॉटन शर्ट',
+                product2: 'फ्लोरल प्रिंट ड्रेस',
+                product3: 'रनिंग स्पोर्ट्स शूज',
+                product4: 'लग्झरी फॅशन वॉच',
+                product5: 'स्किनी फिट जीन्स',
+                product6: 'डिझायनर कुर्ता सेट',
+                product7: 'ट्रेंडी बेसबॉल कॅप',
+                product8: 'एव्हीएटर सनग्लासेस',
+                product9: 'डेनिम जॅकेट',
+                product10: 'डिझायनर हँडबॅग',
+                reviews1: '(१५०)', reviews2: '(८९)', reviews3: '(२००)', reviews4: '(७५)',
+                reviews5: '(१२०)', reviews6: '(९५)', reviews7: '(५०)', reviews8: '(८०)',
+                reviews9: '(६५)', reviews10: '(११०)',
+                comfort: 'कम्फर्ट',
+                trendy: 'ट्रेंडी',
+                stylish: 'स्टाइलिश',
+                traditional: 'ट्रेडिशनल',
+                party: 'पार्टी वियर',
+                formal: 'फॉर्मल',
+                sports: 'स्पोर्ट्स',
+                gift: 'गिफ्ट आयडिया',
+                product11: 'कॉटन प्रिंटेड टी-शर्ट',
+                product12: 'प्लीटेड स्कर्ट',
+                product13: 'लेदर बेल्ट',
+                product14: 'मल्टी-कार्ड वॉलेट',
+                product15: 'सिल्क साड़ी',
+                product16: 'कॉटन हुडी',
+                product17: 'हाय हील सँडल',
+                product18: 'सिल्क टाय',
+                product19: 'स्पोर्ट्स ट्रॅक पँट',
+                product20: 'स्टेनलेस स्टील ब्रेसलेट',
+                reviews11: '(१४०)', reviews12: '(५५)', reviews13: '(४०)', reviews14: '(९०)',
+                reviews15: '(१५०)', reviews16: '(७०)', reviews17: '(६०)', reviews18: '(३५)',
+                reviews19: '(८५)', reviews20: '(४५)',
+                addToCart: 'कार्टमध्ये घाला',
+                aboutTitle: 'Kmart बद्दल',
+                aboutLink: 'आमच्याबद्दल',
+                careerLink: 'करिअर',
+                blogLink: 'ब्लॉग',
+                helpTitle: 'मदत आणि समर्थन',
+                orderStatus: 'ऑर्डर स्थिती',
+                returnPolicy: 'रिटर्न पॉलिसी',followUs: 'आमचे अनुसरण करा',
+                copyright: '© २०२४ Kmart. सर्व हक्क राखीव.'
+            },
+            hi: { // Hindi
+                logo: '🛒 Kmart',
+                tagline: 'आपका स्थानीय बाजार',
+                searchPlaceholder: 'उत्पाद खोजें...',
+                searchBtn: '🔍 खोजें',
+                profile: '👤 मेरी प्रोफाइल',
+                cart: '🛒 कार्ट (0)',
+                navHome: 'मुखपृष्ठ',
+                navNew: 'नए उत्पाद',
+                navBest: 'सर्वाधिक बिक्री',
+                navOffers: 'ऑफ़र्स',
+                navContact: 'संपर्क करें',
+                navAbout: 'हमारे बारे में',
+                fashionTitle: '👕 फैशन कलेक्शन २०२४',
+                fashionDesc: 'स्टाइलिश और ट्रेंडी कपड़े, जूते और एक्सेसरीज़ सबसे कम कीमतों पर',
+                all: 'सभी',
+                men: 'पुरुष',
+                women: 'महिला',
+                kids: 'बच्चे',
+                shoes: 'जूते',
+                accessories: 'एक्सेसरीज़',
+                branded: 'ब्रांडेड',
+                topFashion: '✨ टॉप फैशन प्रोडक्ट्स ✨',
+                hot: 'हॉट 🔥',
+                new: 'नया',
+                bestseller: 'बेस्टसेलर',
+                trending: 'ट्रेंडिंग',
+                special: 'स्पेशल',
+                winter: 'विंटर स्पेशल',
+                luxury: 'लग्जरी',
+                uv: 'यूवी प्रोटेक्शन',
+                offer50: '५०% छूट',
+                product1: 'प्रीमियम कॉटन शर्ट',
+                product2: 'फ्लोरल प्रिंट ड्रेस',
+                product3: 'रनिंग स्पोर्ट्स शूज',
+                product4: 'लग्जरी फैशन वॉच',
+                product5: 'स्किनी फिट जीन्स',
+                product6: 'डिजाइनर कुर्ता सेट',
+                product7: 'ट्रेंडी बेसबॉल कैप',
+                product8: 'एविएटर सनग्लासेस',
+                product9: 'डेनिम जैकेट',
+                product10: 'डिजाइनर हैंडबैग',
+                comfort: 'कम्फर्ट',
+                trendy: 'ट्रेंडी',
+                stylish: 'स्टाइलिश',
+                traditional: 'पारंपरिक',
+                party: 'पार्टी वियर',
+                formal: 'फॉर्मल',
+                sports: 'स्पोर्ट्स',
+                gift: 'गिफ्ट आइडिया',
+                product11: 'कॉटन प्रिंटेड टी-शर्ट',
+                product12: 'प्लीटेड स्कर्ट',
+                product13: 'लेदर बेल्ट',
+                product14: 'मल्टी-कार्ड वॉलेट',
+                orderNow: 'ऑर्डर करा',
+                product15: 'सिल्क साड़ी',
+                product16: 'कॉटन हुडी',
+                product17: 'हाई हील सैंडल',
+                product18: 'सिल्क टाई',
+                product19: 'स्पोर्ट्स ट्रैक पैंट',
+                product20: 'स्टेनलेस स्टील ब्रेसलेट',
+                reviews11: '(१४०)', reviews12: '(५५)', reviews13: '(४०)', reviews14: '(९०)',
+                reviews15: '(१५०)', reviews16: '(७०)', reviews17: '(६०)', reviews18: '(३५)',
+                reviews19: '(८५)', reviews20: '(४५)',
+                reviews1: '(१५०)', reviews2: '(८९)', reviews3: '(२००)', reviews4: '(७५)',
+                reviews5: '(१२०)', reviews6: '(९५)', reviews7: '(५०)', reviews8: '(८०)',
+                reviews9: '(६५)', reviews10: '(११०)',
+                addToCart: 'कार्ट में डालें',
+                aboutTitle: 'Kmart के बारे में',
+                aboutLink: 'हमारे बारे में',
+                careerLink: 'करियर',
+                blogLink: 'ब्लॉग',
+                helpTitle: 'मदद और समर्थन',
+                orderStatus: 'ऑर्डर स्थिति',
+                returnPolicy: 'वापसी नीति',followUs: 'हमें फॉलो करें',
+                copyright: '© २०२४ Kmart. सर्वाधिकार सुरक्षित.'
+            },
+            en: { // English
+                logo: '🛒 Kmart',
+                tagline: 'Your Local Market',
+                searchPlaceholder: 'Search products...',
+                searchBtn: '🔍 Search',
+                profile: '👤 My Profile',
+                cart: '🛒 Cart (0)',
+                navHome: 'Home',
+                navNew: 'New Products',
+                navBest: 'Best Sellers',
+                navOffers: 'Offers',
+                navContact: 'Contact Us',
+                navAbout: 'About Us',
+                fashionTitle: '👕 Fashion Collection 2024',
+                fashionDesc: 'Stylish and trendy clothes, shoes and accessories at lowest prices',
+                all: 'All',
+                men: 'Men',
+                women: 'Women',
+                kids: 'Kids',
+                shoes: 'Shoes',
+                accessories: 'Accessories',
+                branded: 'Branded',
+                topFashion: '✨ TOP FASHION PRODUCTS ✨',
+                hot: 'HOT 🔥',
+                new: 'NEW',
+                bestseller: 'BESTSELLER',
+                trending: 'TRENDING',
+                special: 'SPECIAL',
+                winter: 'WINTER SPECIAL',
+                luxury: 'LUXURY',
+                uv: 'UV PROTECTION',
+                offer50: '50% OFF',
+                product1: 'Premium Cotton Shirt',
+                product2: 'Floral Print Dress',
+                product3: 'Running Sports Shoes',
+                product4: 'Luxury Fashion Watch',
+                product5: 'Slim Fit Jeans',
+                product6: 'Designer Kurta Set',
+                product7: 'Trendy Baseball Cap',
+                product8: 'Aviator Sunglasses',
+                product9: 'Denim Jacket',
+                product10: 'Designer Handbag',
+                comfort: 'COMFORT',
+                orderNow: 'Order Now',
+                trendy: 'TRENDY',
+                stylish: 'STYLISH',
+                traditional: 'TRADITIONAL',
+                party: 'PARTY WEAR',
+                formal: 'FORMAL',
+                sports: 'SPORTS',
+                gift: 'GIFT IDEA',
+                product11: 'Cotton Printed T-Shirt',
+                product12: 'Pleated Skirt',
+                product13: 'Leather Belt',
+                product14: 'Multi-Card Wallet',
+                product15: 'Silk Saree',
+                product16: 'Cotton Hoodie',
+                product17: 'High Heel Sandals',
+                product18: 'Silk Tie',
+                product19: 'Sports Track Pant',
+                product20: 'Stainless Steel Bracelet',
+                reviews11: '(140)', reviews12: '(55)', reviews13: '(40)', reviews14: '(90)',
+                reviews15: '(150)', reviews16: '(70)', reviews17: '(60)', reviews18: '(35)',
+                reviews19: '(85)', reviews20: '(45)',
+                reviews1: '(150)', reviews2: '(89)', reviews3: '(200)', reviews4: '(75)',
+                reviews5: '(120)', reviews6: '(95)', reviews7: '(50)', reviews8: '(80)',
+                reviews9: '(65)', reviews10: '(110)',
+                addToCart: 'Add to Cart',
+                aboutTitle: 'About Kmart',
+                aboutLink: 'About Us',
+                careerLink: 'Careers',
+                blogLink: 'Blog',
+                helpTitle: 'Help & Support',
+                orderStatus: 'Order Status',
+                returnPolicy: 'Return Policy',followUs: 'Follow Us',
+                copyright: '© 2024 Kmart. All rights reserved.'
+            }
+        };
+
+        // Function to switch language
+        function switchLanguage(lang) {
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Get all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Handle placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            // Save language preference
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Load saved language on page load
+        window.onload = function() {
+            const savedLang = localStorage.getItem('preferred-language') || 'mr';
+            switchLanguage(savedLang);
+            
+            // Set active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent.includes('मराठी') && savedLang === 'mr') btn.classList.add('active');
+                if(btn.textContent.includes('हिन्दी') && savedLang === 'hi') btn.classList.add('active');
+                if(btn.textContent.includes('English') && savedLang === 'en') btn.classList.add('active');
+            });
+        };
+    </script><script>
+    // Function to go to order page with product details
+    function goToOrder(image, name, price, originalPrice) {
+        // Encode parameters to handle special characters
+        const encodedName = encodeURIComponent(name);
+        const encodedImage = encodeURIComponent(image);
+        
+        // Redirect to order.html with product details
+        window.location.href = `order.html?img=${encodedImage}&name=${encodedName}&price=${price}&original=${originalPrice}`;
+    }
+</script>
+</body>
+</html>
